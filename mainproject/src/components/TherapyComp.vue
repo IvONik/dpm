@@ -2,7 +2,7 @@
     <div>
         <img :src="img" alt="" width="50">
             <div class="therapy__title">Лечение современными технологиями</div>
-        
+        jsnfvjkrevngfjkdrnvjkdrgfnvjk
         <div class="therapy">           
             
             <p class="therapy__text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, pariatur vitae. Quam dicta delectus vitae dolor esse nesciunt officia. </p>
