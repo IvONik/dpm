@@ -1,7 +1,7 @@
 <template>
     
         <NavComp/>
-        <h2>Наши доктора</h2>
+        <div class="title">Наши доктора</div>
         <div class="container">
             <div class="left__part">
                <div v-if="currentId === '1'"> <DoctorVasilevaComp/></div>
@@ -76,9 +76,13 @@ export default {
 .container{
     display: flex;
     justify-content: space-around;
+    gap: 20px;
 }
 .left__part{
     width: 50%;
+    background-color: rgba(255, 255, 255, 0.7);
+    border: 1px solid #141618;
+    border-radius: 20px;
 }
 .right__part{
     width: 50%;
@@ -86,7 +90,18 @@ export default {
     &__item{
         margin-bottom: 20px;
         font-size: 25px;
+        background-color: rgba(255, 255, 255, 0.7);
+        border: 1px solid #141618;
+        border-radius: 20px;
+        padding-top: 16px;
+        padding-bottom: 16px;
+        cursor: pointer;
     }
+}
+.title{
+    font-size: 50px;
+    font-weight: 600;
+    margin-bottom: 30px;
 }
 
 </style>

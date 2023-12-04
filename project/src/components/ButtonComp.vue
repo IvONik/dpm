@@ -1,9 +1,8 @@
 <template>
     <div class="siteWidth">
     <div class="bigBox">
-      <div  class="box" @click="press()" :style="{'backgroundColor': active ? 'white' : ''}">        
-        {{ button.title }}
-         <img :src="button.img" alt="img" class="svg" >
+      <div  class="box" >        
+        {{ button.title }}        
       </div>
     
     </div>
@@ -22,16 +21,8 @@ export default {
             active: false,
         };
     },
-
-    mounted() {
-        
-    },
-
     methods: {
-        press(){
-            this.active = !this.active;    
-                   
-        },
+       
     },
 };
 </script>
@@ -43,7 +34,6 @@ export default {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
     width: 380px;
     height: 150px;
     border: 1px solid #141618 ;
@@ -52,14 +42,7 @@ export default {
     // background-color: white;
     background-color: rgba(255,255,255,0.5);
     box-shadow: 0px 10px 20px 2px #4f4f54;
-  gap: 12px;  
-  
+    gap: 12px;    
 }
-.box:active{
-  box-shadow: 0px 2px 2px 2px #808992;
-  transition: .2s;
-}
-.svg{
-  height: 60px;
-}
+
 </style>

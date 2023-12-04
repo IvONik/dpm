@@ -1,7 +1,7 @@
 <template>
     <div>
         <NavComp/>
-        <h1>{{ this.title }}</h1>
+        <div class="title">{{ this.title }}</div>
         <ul>
             <li v-for="item in list" :key="item.id" class="text">{{ item }}</li>
         </ul>
@@ -33,7 +33,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.title{
+    font-size: 50px;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
 .text{
+    display: flex;
+
     font-size: 30px;
+    margin-bottom: 10px;
 }
 </style>
