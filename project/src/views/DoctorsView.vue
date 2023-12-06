@@ -3,7 +3,7 @@
         <NavComp/>
         <div class="title">Наши доктора</div>
         <div class="container">
-            <div class="left__part">
+            <div class="left__part" >
                <div v-if="currentId === '1'"> <DoctorVasilevaComp/></div>
                <div v-if="currentId === '3'"> <DoctorKiryanova/></div>
                <div v-if="currentId === '2'"> <DoctorSurikov/></div>
@@ -76,16 +76,16 @@ export default {
 .container{
     display: flex;
     justify-content: space-around;
-    gap: 20px;
+    //gap: 20px;
 }
 .left__part{
-    width: 50%;
+    width: 60%;
     background-color: rgba(255, 255, 255, 0.7);
     border: 1px solid #141618;
     border-radius: 20px;
 }
 .right__part{
-    width: 50%;
+    width: 30%;
     padding-top: 30px;
     &__item{
         margin-bottom: 20px;

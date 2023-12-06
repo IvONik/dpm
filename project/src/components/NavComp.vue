@@ -103,7 +103,7 @@ export default {
     transition: .2s;
 }
 .active{
-    background-color: rgba(255, 255, 255, 0.88);
+    background-color: rgba(255, 255, 255, 0.9);
     // box-shadow: 0px 2px 2px 2px #4f4f54;
     transition: .2s;
 }

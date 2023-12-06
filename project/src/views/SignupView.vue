@@ -1,25 +1,98 @@
 <template>
-    <div>
-        <NavComp/>
-        dfsv
-    </div>
+    <NavComp />
+
+
+    <form class="card auth-card" @submit.prevent="submitHandler">
+        <div class="card-content">
+
+            <div class="input-field">
+                <label for="email">Email</label>
+                <br>
+                <input id="email" type="email" v-model.trim="email" required>
+            </div>
+            <div class="input-field">
+                <label for="password">Пароль</label>
+                <br>
+                <input id="password" type="password" v-model.trim="password" required>
+
+
+            </div>
+        </div>
+        <div class="card-action">
+            <div>
+                <button class="btn waves-effect waves-light auth-submit" type="submit">Войти
+                </button>
+                <br>
+                или
+                <br>
+                <router-link to="/register"><button class="btn">Зарегистрироваться</button></router-link>
+            </div>
+
+        </div>
+    </form>
 </template>
 
 <script>
 import NavComp from '@/components/NavComp.vue';
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 export default {
     name: 'DiplomSignupView',
     data() {
-        return {};
+        return {
+            email: '',
+            password: '',
+        };
     },
     mounted() {
     },
-    methods: {},
+    methods: {
+        async submitHandler() {
+            const formData = {
+                email: this.email,
+                password: this.password
+            }
+            const auth = getAuth();
+                signInWithEmailAndPassword(auth, this.email, this.password)
+                .then((userCredential) => {
+                    // Signed in 
+                    const user = userCredential.user;
+                    this.$router.push('/') 
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    alert('Проверьте логин или пароль')
+                });
+                
+        },
+    },
     components: { NavComp }
 };
 </script>
 
 <style lang="scss" scoped>
+.input-field {
+    margin-bottom: 16px;
 
+}
+input {
+    width: 360px;
+    height: 40px;
+    background-color: white;
+    border-radius: 15px;
+    margin-bottom: 10px;
+    padding-left: 15px;
+    border: 0;
+    font-size: 20px;
+}
+.btn {
+    width: 360px;
+    height: 40px;
+    border-radius: 15px;
+    background-color: rgb(217, 196, 255);
+    border: 0;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
 </style>

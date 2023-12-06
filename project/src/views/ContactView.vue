@@ -45,7 +45,7 @@ initMap();
 
 <style lang="scss" scoped>
 #map{
-    width: 100%;
+    width: 60%;
     height: 400px;
     border-radius: 20px;
     border: 1px solid #141618;
