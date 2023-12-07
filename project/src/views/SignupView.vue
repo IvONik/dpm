@@ -3,7 +3,7 @@
 
 
     <form class="card auth-card" @submit.prevent="submitHandler">
-        <div class="card-content">
+        <div class="card-content"> Войти
 
             <div class="input-field">
                 <label for="email">Email</label>
@@ -48,16 +48,16 @@ export default {
     },
     methods: {
         async submitHandler() {
-            const formData = {
-                email: this.email,
-                password: this.password
-            }
+            // const formData = {
+            //     email: this.email,
+            //     password: this.password
+            // }
             const auth = getAuth();
                 signInWithEmailAndPassword(auth, this.email, this.password)
-                .then((userCredential) => {
-                    // Signed in 
+                .then((userCredential) => {                    
                     const user = userCredential.user;
-                    this.$router.push('/') 
+                    this.$router.push('/LK') 
+                    
                 })
                 .catch((error) => {
                     const errorCode = error.code;
@@ -72,6 +72,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.card{
+    width: 70%;
+    background-color: rgb(133, 230, 230);
+    border-radius: 15px;
+    padding: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
 .input-field {
     margin-bottom: 16px;
 
@@ -94,5 +102,9 @@ input {
     border: 0;
     font-size: 20px;
     margin-bottom: 10px;
+}
+.btn:hover{
+    background-color: rgb(142, 86, 245);
+
 }
 </style>

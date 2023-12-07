@@ -40,7 +40,6 @@ export default {
 }
 .text{
     display: flex;
-
     font-size: 30px;
     margin-bottom: 10px;
 }

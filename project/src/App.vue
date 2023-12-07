@@ -22,6 +22,7 @@ export default {
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
+ 
 }
 body{  
   background-image: url(./assets/img/abstract-wavy-background1.jpg);

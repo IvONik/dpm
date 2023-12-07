@@ -64,6 +64,12 @@ const routes = [
         component: () => import('../views/RegisterView.vue')
       },
       {
+        path: '/LK',
+        name: 'LK',
+        // which is lazy-loaded when the route is visited.        
+        component: () => import('../views/PersonalAccount.vue')
+      },
+      {
         path: '/:CatchAll(.*)',
         name: '404',
         component: NotFoundView,

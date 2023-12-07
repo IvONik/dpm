@@ -1,7 +1,10 @@
 <template>
     <div class="box">
         <router-link class="box__item"     
-            v-for="button in linkArray" :key="button.id" :to="button.url"  active-class="active">{{ button.nameLink }}        
+            v-for="button in linkArray" :key="button.id" :to="button.url"  active-class="active"            
+           
+            >{{ button.nameLink }}  
+                 
         </router-link>        
     </div>
 </template>
@@ -55,7 +58,7 @@ export default {
                 },
                 {
                     id: '8',
-                    nameLink: 'Записаться на прием',
+                    nameLink: 'Личный кабинет',
                     url: '/signup',
                 },
 
@@ -72,8 +75,7 @@ export default {
 
 
 .box {    
-    display: grid;
-    // grid-column: auto;
+    display: grid;    
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     gap: 12px;
     margin-bottom: 50px;
@@ -83,17 +85,14 @@ export default {
         height: 80px;
         border: 1px solid #141618;
         border-radius: 20px;
-        color: black;
-        // background-color: white;
+        color: black;        
         background-color: rgba(255, 255, 255, 0.5);
         box-shadow: 0px 10px 20px 2px #4f4f54;
         display: flex;        
         // padding-left: 30px;
         // padding-right: 30px;        
-        align-items: center;
-        // gap: 15px;
-        font-size: 25px;
-        // text-align: center;
+        align-items: center;        
+        font-size: 25px;        
         justify-content: center;
     }
 }
@@ -103,8 +102,7 @@ export default {
     transition: .2s;
 }
 .active{
-    background-color: rgba(255, 255, 255, 0.9);
-    // box-shadow: 0px 2px 2px 2px #4f4f54;
+    background-color: rgba(255, 255, 255, 0.9);   
     transition: .2s;
 }
 </style>
