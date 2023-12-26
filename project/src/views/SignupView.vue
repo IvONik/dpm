@@ -3,7 +3,7 @@
 
 
     <form class="card auth-card" @submit.prevent="submitHandler">
-        <div class="card-content"> Войти
+        <div class="card-content"> <div class="title">Войдите в личный кабинет</div>
 
             <div class="input-field">
                 <label for="email">Email</label>
@@ -72,9 +72,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.title{
+    font-size: 50px;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
 .card{
     width: 70%;
-    background-color: rgb(133, 230, 230);
+    background-color: rgb(182, 236, 236);
     border-radius: 15px;
     padding: 20px;
     margin-left: auto;
@@ -87,7 +92,7 @@ export default {
 input {
     width: 360px;
     height: 40px;
-    background-color: white;
+    background-color: rgb(240, 243, 246);
     border-radius: 15px;
     margin-bottom: 10px;
     padding-left: 15px;
@@ -98,13 +103,13 @@ input {
     width: 360px;
     height: 40px;
     border-radius: 15px;
-    background-color: rgb(217, 196, 255);
+    background-color: rgb(148, 165, 196);
     border: 0;
     font-size: 20px;
     margin-bottom: 10px;
 }
 .btn:hover{
-    background-color: rgb(142, 86, 245);
+    background-color: rgba(124, 161, 165, 0.9);
 
 }
 </style>

@@ -10,7 +10,10 @@
                <div v-if="currentId === '4'"> <DoctorIvanov/></div>
             </div>
             <div class="right__part">               
-                <div class="right__part__item" style="white-space: pre-line;" v-for="item in doctorsArray" :key="item.id" @click=show(item.id)                
+                <div class="right__part__item" 
+                style="white-space: pre-line;"                 
+                v-for="item in doctorsArray" :key="item.id" @click=show(item.id)  
+                :class="{'actived': active === item.id, 'right__part__item': active !== item.id}"
                 >{{ item.name}} {{  item.lustName }}
                 </div>                
             </div>
@@ -35,28 +38,32 @@ export default {
                     name: 'Елена',
                     lustName: 'Васильева',
                     education: 'СПБГУ',
+                    active: null,
                 },
                 {
                     id: '2',
                     name: 'Дмитрий',
                     lustName: 'Суриков',
                     education: 'СПБГУ',
+                    active: null,
                 },
                 {
                     id: '3',
                     name: 'Ольга',
                     lustName: 'Кирьянова',
                     education: '!-ый Медицинский университет',
+                    active: null,
                 },
                 {
                     id: '4',
                     name: 'Григорий',
                     lustName: 'Иванов',
                     education: 'СПБГУ',
+                    active: null,
                 },
                 
             ],
-            currentId: '1',
+            currentId: '1',           
             
         };
     },
@@ -64,8 +71,10 @@ export default {
         
     },
     methods: {
-        show(id){
+        show(id){              
+            // this.active = id;            
             this.currentId = id 
+            this.active = this.currentId;
         }
     },
     components: { NavComp, DoctorVasilevaComp, DoctorKiryanova, DoctorSurikov, DoctorIvanov }
@@ -102,6 +111,13 @@ export default {
     font-size: 50px;
     font-weight: 600;
     margin-bottom: 30px;
+}
+.actived{
+    
+    background-color: rgba(124, 161, 165, 0.9);   
+    transition: .2s;
+    // color: #141618;
+    color: rgb(197, 221, 242);
 }
 
 </style>

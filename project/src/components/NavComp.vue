@@ -86,23 +86,27 @@ export default {
         border: 1px solid #141618;
         border-radius: 20px;
         color: black;        
-        background-color: rgba(255, 255, 255, 0.5);
-        box-shadow: 0px 10px 20px 2px #4f4f54;
+        // background-color: rgba(255, 255, 255, 0.5);
+        // box-shadow: 0px 10px 20px 2px #4f4f54;
         display: flex;        
         // padding-left: 30px;
         // padding-right: 30px;        
         align-items: center;        
         font-size: 25px;        
         justify-content: center;
+        color: rgb(197, 221, 242);
     }
 }
 
 .box__item:hover {
-    background-color: rgba(255, 255, 255, 0.742);
+    background-color: rgba(124, 161, 165, 0.9);
     transition: .2s;
+    color: #141618;
 }
 .active{
-    background-color: rgba(255, 255, 255, 0.9);   
+    background-color: rgba(124, 161, 165, 0.9);   
     transition: .2s;
+    // color: #141618;
+    color: rgb(197, 221, 242);
 }
 </style>

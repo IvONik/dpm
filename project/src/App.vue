@@ -25,7 +25,8 @@ export default {
  
 }
 body{  
-  background-image: url(./assets/img/abstract-wavy-background1.jpg);
+  // background-image: url(./assets/img/abstract-wavy-background1.jpg);
+  background-color: rgb(23, 44, 67);
   background-repeat: no-repeat;
   background-position: center center;
   background-attachment: fixed;
