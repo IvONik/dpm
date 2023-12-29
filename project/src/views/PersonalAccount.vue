@@ -2,7 +2,7 @@
     <div>
         <NavComp/>
             <div class="page">
-                <div class="big__part">
+                <div class="part1">
                     <div class="title">Записаться на прием</div>
                     здесь будет календарь
                 </div>
@@ -24,11 +24,12 @@ import { getAuth, signOut } from "firebase/auth";
             };
         },
         methods:{
-            logout(){
+            async logout(){
                 const auth = getAuth();
                 signOut(auth).then(() => {                
                 this.$router.push('/') 
                 console.log('logout');
+                this.$store.state.auth = false
                 }).catch((error) => {
                 // An error happened.
                 });
@@ -43,10 +44,7 @@ import { getAuth, signOut } from "firebase/auth";
     display: flex;
     justify-content: space-around;
 }
-.big__part{
-    width: 60%;
-    border: 1px solid black;
-    border-radius: 15px;
+.part1{   
     height: 400px;
 }
 
@@ -57,13 +55,13 @@ import { getAuth, signOut } from "firebase/auth";
     width: 360px;
     height: 40px;
     border-radius: 15px;
-    background-color: rgb(217, 196, 255);
+    background-color: #64ABD0;
     border: 0;
     font-size: 20px;
     margin-bottom: 10px;
 }
 .btn:hover{
-    background-color: rgb(142, 86, 245);
+    background-color: #FFD973;
 
 }
 </style>

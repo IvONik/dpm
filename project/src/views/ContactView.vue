@@ -46,14 +46,9 @@ initMap();
 <style lang="scss" scoped>
 #map{
     width: 60%;
-    height: 400px;
+    height: 400px;    
     border-radius: 20px;
     border: 1px solid #141618;
     // box-shadow: 0px 10px 20px 2px #4f4f54;
-}
-.title{
-    font-size: 50px;
-    font-weight: 600;
-    margin-bottom: 30px;
 }
 </style>

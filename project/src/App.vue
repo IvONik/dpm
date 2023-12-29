@@ -10,8 +10,7 @@ import NavComp from './components/NavComp.vue';
 
 export default {
     component: {
-        NavComp,
-       
+        NavComp,       
     },    
 }
 </script>
@@ -27,6 +26,7 @@ export default {
 body{  
   // background-image: url(./assets/img/abstract-wavy-background1.jpg);
   background-color: rgb(23, 44, 67);
+  
   background-repeat: no-repeat;
   background-position: center center;
   background-attachment: fixed;

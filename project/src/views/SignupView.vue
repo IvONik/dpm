@@ -1,21 +1,16 @@
 <template>
     <NavComp />
-
-
     <form class="card auth-card" @submit.prevent="submitHandler">
         <div class="card-content"> <div class="title">Войдите в личный кабинет</div>
-
             <div class="input-field">
-                <label for="email">Email</label>
+                <div class="label"><label for="email">Email</label></div>
                 <br>
                 <input id="email" type="email" v-model.trim="email" required>
             </div>
             <div class="input-field">
-                <label for="password">Пароль</label>
+                <div class="label"><label for="password">Пароль</label></div>
                 <br>
                 <input id="password" type="password" v-model.trim="password" required>
-
-
             </div>
         </div>
         <div class="card-action">
@@ -23,11 +18,10 @@
                 <button class="btn waves-effect waves-light auth-submit" type="submit">Войти
                 </button>
                 <br>
-                или
+                <div class="label">или</div>
                 <br>
                 <router-link to="/register"><button class="btn">Зарегистрироваться</button></router-link>
             </div>
-
         </div>
     </form>
 </template>
@@ -35,6 +29,7 @@
 <script>
 import NavComp from '@/components/NavComp.vue';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+
 
 export default {
     name: 'DiplomSignupView',
@@ -47,17 +42,13 @@ export default {
     mounted() {
     },
     methods: {
-        async submitHandler() {
-            // const formData = {
-            //     email: this.email,
-            //     password: this.password
-            // }
+        async submitHandler() {           
             const auth = getAuth();
                 signInWithEmailAndPassword(auth, this.email, this.password)
                 .then((userCredential) => {                    
                     const user = userCredential.user;
-                    this.$router.push('/LK') 
-                    
+                    this.$router.push('/LK')   
+                    this.$store.state.auth = true                  
                 })
                 .catch((error) => {
                     const errorCode = error.code;
@@ -72,44 +63,50 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.title{
-    font-size: 50px;
-    font-weight: 600;
-    margin-bottom: 30px;
+.label{
+    margin-bottom: 0px;
+    color: #c1d9f0;
+    //color: $colorText;
+    
 }
-.card{
+
+.card{    
+    font-size: 20px;    
     width: 70%;
-    background-color: rgb(182, 236, 236);
+    background-color: #2E3784;
     border-radius: 15px;
     padding: 20px;
     margin-left: auto;
     margin-right: auto;
 }
 .input-field {
-    margin-bottom: 16px;
+    margin-bottom: 8px;
 
 }
 input {
+    font-size: 20px;
     width: 360px;
     height: 40px;
     background-color: rgb(240, 243, 246);
     border-radius: 15px;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     padding-left: 15px;
     border: 0;
     font-size: 20px;
 }
-.btn {
+.btn {    
     width: 360px;
     height: 40px;
     border-radius: 15px;
     background-color: rgb(148, 165, 196);
     border: 0;
     font-size: 20px;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
 }
 .btn:hover{
-    background-color: rgba(124, 161, 165, 0.9);
+    
+    background-color: #64ABD0;
+    transition: .2s;
 
 }
 </style>

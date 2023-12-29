@@ -33,14 +33,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.title{
-    font-size: 50px;
-    font-weight: 600;
-    margin-bottom: 30px;
-}
-.text{
-    display: flex;
-    font-size: 30px;
-    margin-bottom: 10px;
-}
+// .title{
+//     font-size: 50px;
+//     font-weight: 600;
+//     margin-bottom: 30px;
+// }
+// .text{
+//     display: flex;
+//     font-size: 30px;
+//     margin-bottom: 10px;
+// }
 </style>

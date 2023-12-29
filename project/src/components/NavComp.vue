@@ -72,7 +72,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+@import '../assets/style/_vars.scss'; 
 
 .box {    
     display: grid;    
@@ -83,18 +83,16 @@ export default {
     &__item {
         width: 350px;
         height: 80px;
-        border: 1px solid #141618;
-        border-radius: 20px;
-        color: black;        
-        // background-color: rgba(255, 255, 255, 0.5);
-        // box-shadow: 0px 10px 20px 2px #4f4f54;
-        display: flex;        
-        // padding-left: 30px;
-        // padding-right: 30px;        
+        // border: 1px solid #64ABD0;
+        // border-radius: 20px;
+        // color: #c1d9f0;  
+        color: $colorText;           
+        display: flex;  
+        @include border;    
         align-items: center;        
         font-size: 25px;        
         justify-content: center;
-        color: rgb(197, 221, 242);
+        
     }
 }
 
@@ -105,8 +103,7 @@ export default {
 }
 .active{
     background-color: rgba(124, 161, 165, 0.9);   
-    transition: .2s;
-    // color: #141618;
+    transition: .2s;    
     color: rgb(197, 221, 242);
 }
 </style>

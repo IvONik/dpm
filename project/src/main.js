@@ -4,9 +4,9 @@ import router from './router'
 import store from './store'
 import './assets/style/main.scss'
 import { initializeApp } from "firebase/app";
-// import { getAnalytics } from "firebase/analytics";
 import 'firebase/auth'
 import 'firebase/database'
+// import { getAnalytics } from "firebase/analytics";
 
 const firebaseConfig = {
     apiKey: "AIzaSyAAelsIo36Cz53SC_g78oSPWWrz7OZKY90",

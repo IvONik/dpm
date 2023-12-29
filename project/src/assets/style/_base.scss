@@ -1,0 +1,16 @@
+.title{
+    font-size: 50px;
+    font-weight: 600;
+    margin-bottom: 30px;
+    color: $colorTitle;
+}
+.text{
+    display: flex;
+    font-size: 30px;
+    color: $colorText;
+    margin-bottom: 10px;    
+}
+.part1{
+    width: 60%;    
+    @include border;
+}

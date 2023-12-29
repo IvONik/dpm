@@ -3,7 +3,7 @@
         <NavComp/>
         <div class="title">Наши доктора</div>
         <div class="container">
-            <div class="left__part" >
+            <div class="part1" >
                <div v-if="currentId === '1'"> <DoctorVasilevaComp/></div>
                <div v-if="currentId === '3'"> <DoctorKiryanova/></div>
                <div v-if="currentId === '2'"> <DoctorSurikov/></div>
@@ -87,11 +87,11 @@ export default {
     justify-content: space-around;
     //gap: 20px;
 }
-.left__part{
-    width: 60%;
+.part1{
+    // width: 60%;
     background-color: rgba(255, 255, 255, 0.7);
-    border: 1px solid #141618;
-    border-radius: 20px;
+    // border: 1px solid #141618;
+    // border-radius: 20px;
 }
 .right__part{
     width: 30%;
@@ -99,7 +99,7 @@ export default {
     &__item{
         margin-bottom: 20px;
         font-size: 25px;
-        background-color: rgba(255, 255, 255, 0.7);
+        background-color: 	#64ABD0;        
         border: 1px solid #141618;
         border-radius: 20px;
         padding-top: 16px;
@@ -107,17 +107,14 @@ export default {
         cursor: pointer;
     }
 }
-.title{
-    font-size: 50px;
-    font-weight: 600;
-    margin-bottom: 30px;
-}
-.actived{
-    
+.actived{    
     background-color: rgba(124, 161, 165, 0.9);   
-    transition: .2s;
-    // color: #141618;
+    transition: .2s;    
     color: rgb(197, 221, 242);
 }
-
+.right__part__item:hover{
+    background-color: #235B79;
+    transition: .2s;
+    color: #FFD973;
+}
 </style>
