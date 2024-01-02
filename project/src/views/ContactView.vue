@@ -20,8 +20,12 @@ export default {
     components: { NavComp },
     
 };
-let map;
+// document.addEventListener("DOMContentLoaded", function() {
+//   initMap();
+// });
+let map = document.getElementById("map")
 
+// let map;
 async function initMap() { 
   const position = { lat: 59.916, lng: 30.326 };  
   const { Map } = await google.maps.importLibrary("maps");
@@ -38,8 +42,11 @@ async function initMap() {
     title: "Uluru",
   });
 }
-
+document.addEventListener("DOMContentLoaded", function() {
+  initMap();
+});
 initMap();
+
 
 </script>
 
@@ -48,7 +55,6 @@ initMap();
     width: 60%;
     height: 400px;    
     border-radius: 20px;
-    border: 1px solid #141618;
-    // box-shadow: 0px 10px 20px 2px #4f4f54;
+    border: 1px solid #141618;    
 }
 </style>

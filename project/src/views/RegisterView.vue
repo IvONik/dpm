@@ -3,7 +3,7 @@
 
 
     <form class="card auth-card" @submit.prevent="submitHandler">
-        <div class="card-content"> Зарегистрироваться
+        <div class="card-content"> <div class="title">Зарегистрироваться</div>
 
             <div class="input-field">
                 <label for="email">Email</label>
@@ -14,17 +14,10 @@
                 <label for="password">Пароль</label>
                 <br>
                 <input id="password" type="password" v-model.trim="password" required>
-
-
             </div>
         </div>
         <div class="card-action">
-            <div>
-                <!-- <button class="btn waves-effect waves-light auth-submit" type="submit">Войти
-                </button>
-                <br>
-                или
-                <br> -->
+            <div>                
                 <button class="btn">Зарегистрироваться</button>
             </div>
 
@@ -47,15 +40,22 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
             async submitHandler() {
                 const auth = getAuth();
                 createUserWithEmailAndPassword(auth, this.email, this.password)
-                .then((userCredential) => {
-                    // Signed up 
+                .then((userCredential) => {                    
                     const user = userCredential.user;
                     this.$router.push('/LK') 
                 })
                 .catch((error) => {
                     const errorCode = error.code;
                     const errorMessage = error.message;
-                    // ..
+                    // console.log(errorCode);
+                    // console.log(errorMessage);
+                    
+                    if(errorCode === "auth/email-already-in-use"){
+                        alert("Такой пользователь уже существует") 
+                    }  
+                    if(errorCode === "auth/weak-password")  {
+                        alert("Пароль должен состоять минимум из 6 символов")
+                    }               
                 });
                 
             },

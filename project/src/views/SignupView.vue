@@ -1,6 +1,7 @@
 <template>
     <NavComp />
-    <form class="card auth-card" @submit.prevent="submitHandler">
+    <div v-if="!this.$store.state.auth">
+        <form class="card auth-card" @submit.prevent="submitHandler">
         <div class="card-content"> <div class="title">Войдите в личный кабинет</div>
             <div class="input-field">
                 <div class="label"><label for="email">Email</label></div>
@@ -24,11 +25,18 @@
             </div>
         </div>
     </form>
+    </div>
+    <div v-if="this.$store.state.auth"><LKComp/>
+        
+    </div>
+    
 </template>
 
 <script>
 import NavComp from '@/components/NavComp.vue';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import PersonalAccount from './PersonalAccount.vue';
+import LKComp from '@/components/LKComp.vue';
 
 
 export default {
@@ -58,7 +66,12 @@ export default {
                 
         },
     },
-    components: { NavComp }
+    components: { NavComp, PersonalAccount, LKComp },
+    // computed:{
+    //     navButtonClass(){
+    //         return this.$store.state.auth ? 'active' : '';
+    //     }
+    // }
 };
 </script>
 
@@ -66,10 +79,8 @@ export default {
 .label{
     margin-bottom: 0px;
     color: #c1d9f0;
-    //color: $colorText;
-    
+    //color: $colorText;    
 }
-
 .card{    
     font-size: 20px;    
     width: 70%;
@@ -81,7 +92,6 @@ export default {
 }
 .input-field {
     margin-bottom: 8px;
-
 }
 input {
     font-size: 20px;
@@ -103,10 +113,14 @@ input {
     font-size: 20px;
     margin-bottom: 8px;
 }
-.btn:hover{
-    
+.btn:hover{    
     background-color: #64ABD0;
     transition: .2s;
 
+}
+.active{
+    background-color: rgba(124, 161, 165, 0.9);   
+    transition: .2s;    
+    color: rgb(197, 221, 242);
 }
 </style>

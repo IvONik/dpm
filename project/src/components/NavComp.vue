@@ -1,10 +1,11 @@
 <template>
     <div class="box">
         <router-link class="box__item"     
-            v-for="button in linkArray" :key="button.id" :to="button.url"  active-class="active"            
-           
-            >{{ button.nameLink }}  
-                 
+            v-for="button in linkArray" 
+            :key="button.id" 
+            :to="button.url"             
+            :class="{ 'active': isLinkActive(button.url) }"    
+            >{{ button.nameLink }}            
         </router-link>        
     </div>
 </template>
@@ -57,17 +58,24 @@ export default {
                     url: '/reviews',
                 },
                 {
-                    id: '8',
+                    id: '8',                    
                     nameLink: 'Личный кабинет',
                     url: '/signup',
-                },
+                },                
 
             ]
         };
     },
+    computed: {
+        isAuthenticated() {        
+            return this.$store.state.auth;
+        },
+  },
     methods: {
-        
-    }
+        isLinkActive(url) {           
+            return this.$route.path === url || (url === '/signup' && this.$route.path === '/LK');       
+        },
+  },
 };
 </script>
 
