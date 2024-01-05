@@ -73,7 +73,7 @@ export default {
   },
     methods: {
         isLinkActive(url) {           
-            return this.$route.path === url || (url === '/signup' && this.$route.path === '/LK');       
+            return this.$route.path === url || (url === '/signup' && this.$route.path === '/LK' && this.$route.path === '/addReview');       
         },
   },
 };

@@ -8,6 +8,7 @@ import DoctorsView from '@/views/DoctorsView.vue'
 import ReviewsView from '@/views/ReviewsView.vue'
 import ProstheticsView from '@/views/ProstheticsView.vue'
 import NotFoundView from '@/views/NotFoundView.vue'
+import AddReview from '@/views/AddReview.vue'
 
 
 const routes = [
@@ -68,6 +69,12 @@ const routes = [
         name: 'LK',
         // which is lazy-loaded when the route is visited.        
         component: () => import('../views/PersonalAccount.vue')
+      },
+      {
+        path: '/addReview',
+        name: 'addReview',
+        // which is lazy-loaded when the route is visited.        
+        component: () => import('../views/AddReview.vue')
       },
       {
         path: '/:CatchAll(.*)',

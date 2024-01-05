@@ -8,6 +8,8 @@ import 'firebase/auth'
 import 'firebase/database'
 // import { getAnalytics } from "firebase/analytics";
 
+import { getFirestore } from "firebase/firestore";
+
 const firebaseConfig = {
     apiKey: "AIzaSyAAelsIo36Cz53SC_g78oSPWWrz7OZKY90",
     authDomain: "dpmfb-3b66c.firebaseapp.com",
@@ -15,10 +17,24 @@ const firebaseConfig = {
     storageBucket: "dpmfb-3b66c.appspot.com",
     messagingSenderId: "547729967324",
     appId: "1:547729967324:web:ac34b0527fece5983bcc19",
-    measurementId: "G-GTW2QPJK54"
+    measurementId: "G-GTW2QPJK54",    
    };
    
 const app = initializeApp(firebaseConfig);
+
+
+//////   DB   ////////
+const db = getFirestore(app);
+export{ db};
+
+
+  
+ 
+  
+  
+  // Initialize Realtime Database and get a reference to the service
+  // const database = getDatabase(app);
+
 //const analytics = getAnalytics(app);
 // firebase.initializeApp({
 //     apiKey: "AIzaSyAAelsIo36Cz53SC_g78oSPWWrz7OZKY90",

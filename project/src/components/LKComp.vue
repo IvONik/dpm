@@ -7,7 +7,7 @@
                 </div>
                 <div class="small__part">
                     <button class="btn" @click="logout()" >Выйти</button>
-                    <button class="btn" >Оставить отзыв</button>
+                    <button class="btn" @click="addReview()">Оставить отзыв</button>
 
                 </div>
             </div>
@@ -32,6 +32,9 @@ import { getAuth, signOut } from "firebase/auth";
                 }).catch((error) => {
                 // An error happened.
                 });
+            },
+            addReview(){
+                this.$router.push('/addReview')
             }
         },
         computed:{
