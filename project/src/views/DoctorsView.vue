@@ -13,7 +13,7 @@
                 <div class="right__part__item" 
                 style="white-space: pre-line;"                 
                 v-for="item in doctorsArray" :key="item.id" @click=show(item.id)  
-                :class="{'actived': active === item.id, 'right__part__item': active !== item.id}"
+                :class="{'actived': active === item.id}"
                 >{{ item.name}} {{  item.lustName }}
                 </div>                
             </div>
@@ -71,11 +71,13 @@ export default {
         
     },
     methods: {
-        show(id){              
-            // this.active = id;            
+        show(id){           
             this.currentId = id 
             this.active = this.currentId;
         }
+    },
+    created(){
+        this.active = this.currentId;
     },
     components: { NavComp, DoctorVasilevaComp, DoctorKiryanova, DoctorSurikov, DoctorIvanov }
 };
@@ -108,13 +110,14 @@ export default {
     }
 }
 .actived{    
-    background-color: rgba(124, 161, 165, 0.9);   
-    transition: .2s;    
-    color: rgb(197, 221, 242);
-}
-.right__part__item:hover{
     background-color: #235B79;
     transition: .2s;
     color: #FFD973;
+    
+}
+.right__part__item:hover{    
+    background-color: rgba(124, 161, 165, 0.9);   
+    transition: .5s;    
+    color: rgb(197, 221, 242);
 }
 </style>

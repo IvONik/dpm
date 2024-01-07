@@ -28,4 +28,8 @@ span{
 img{
     width: 250px;
 }
+h2{
+    font-size: 30px;
+    color: rgb(42, 36, 19);
+}
 </style>

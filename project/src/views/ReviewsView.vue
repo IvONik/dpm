@@ -7,10 +7,18 @@
         <button class="btn" @click="sortAsc()">Сортировать (сначала старые)</button>
     </div>
     <div class="container">
-        <div v-for="item in reviews" :key="item.id" class="container__rev">
+        <div v-for="item in paginatedReviews" :key="item.id" class="container__rev">
             <div class="container__rev__title">{{ item.name }}</div>{{ item.text }}
         </div>
+        
     </div>
+        <div class="pagination">            
+            <div v-for="page in pages" class="pages"
+            @click="pageClick(page)"
+            :class="{'activePage': page === pageNumber}">
+                {{ page }}
+            </div>            
+        </div>
 </template>
 
 <script>
@@ -22,9 +30,10 @@ export default {
     data() {
         return {
             reviews: [],
+            reviewsPerPage: 6,
+            pageNumber: 1,
         };
     },
-
     methods: {
         add() {
             if (this.$store.state.auth === false) {
@@ -34,7 +43,7 @@ export default {
                 console.log("Можно оставить отзыв");
             }
         },
-        sortAsc() {            
+        sortAsc() {
             const sortedAsc = this.reviews.sort(
                 (objA, objB) => Number(objA.date) - Number(objB.date),
             );
@@ -44,21 +53,35 @@ export default {
                 (objB, objA) => Number(objA.date) - Number(objB.date),
             );
         },
+        pageClick(page){
+            this.pageNumber = page;
+        },
     },
     async created() {
-        try {
-            const q = query(collection(db, "reviews"));
-            const querySnapshot = await getDocs(q); // Ожидание разрешения промиса
-            querySnapshot.forEach((doc) => {
-                this.reviews.push(doc.data())
-                // console.log(doc.id, " => ", doc.data());
-            });
-        } catch (err) {
-            console.error("Ошибка при получении данных из Firestore:", err);
-        }
-    },
-    components: { NavComp }
+        
+            try {
+                const q = query(collection(db, "reviews"));
+                const querySnapshot = await getDocs(q); // Ожидание разрешения промиса
+                querySnapshot.forEach((doc) => {
+                    this.reviews.push(doc.data())                    
+                });
+            } catch (err) {
+                console.error("Ошибка при получении данных из Firestore:", err);
+            }       
 
+    },
+    components: { NavComp },
+    computed:{
+        pages(){
+            console.log(this.reviews.length);
+            return Math.ceil(this.reviews.length / this.reviewsPerPage);
+        },
+        paginatedReviews(){
+            let from = (this.pageNumber -1) * this.reviewsPerPage;
+            let to = from + this.reviewsPerPage;
+            return this.reviews.slice(from, to);
+        }
+    } 
 };
 
 </script>
@@ -95,7 +118,7 @@ export default {
 
     &__rev {
         margin-bottom: 50px;
-        width: 350px;
+        // width: 350px;
         height: 350px;
         color: $colorText;
         display: flex;
@@ -112,8 +135,28 @@ export default {
             font-weight: 600;
             margin-bottom: 10px;
             color: #FFBF73;
-
         }
     }
+}
+.pagination{
+    display: flex;    
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px;
+    
+}
+.pages{
+    display: flex;  
+    width: 40px;
+    justify-content: center;
+    padding: 10px;
+    border: solid 1px black;
+    border-radius: 15px;
+}
+.pages:hover{
+    background-color: #FFBF73;
+}
+.activePage{
+    background-color: #64ABD0;
 }
 </style>
