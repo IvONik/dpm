@@ -39,8 +39,7 @@ export default {
             if (this.$store.state.auth === false) {
                 this.$router.push('/signup')
             } else {
-                this.$router.push('/addReview')
-                console.log("Можно оставить отзыв");
+                this.$router.push('/addReview')                
             }
         },
         sortAsc() {
@@ -57,23 +56,23 @@ export default {
             this.pageNumber = page;
         },
     },
-    async created() {
-        
+
+    async created() {        
             try {
                 const q = query(collection(db, "reviews"));
-                const querySnapshot = await getDocs(q); // Ожидание разрешения промиса
+                const querySnapshot = await getDocs(q);
                 querySnapshot.forEach((doc) => {
                     this.reviews.push(doc.data())                    
                 });
             } catch (err) {
                 console.error("Ошибка при получении данных из Firestore:", err);
-            }       
-
+            }      
     },
+
     components: { NavComp },
+    
     computed:{
-        pages(){
-            console.log(this.reviews.length);
+        pages(){           
             return Math.ceil(this.reviews.length / this.reviewsPerPage);
         },
         paginatedReviews(){
@@ -94,9 +93,7 @@ export default {
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     gap: 12px;
 }
-
 .btn {
-
     // width: 350px;
     height: 40px;
     border-radius: 15px;
@@ -105,17 +102,14 @@ export default {
     font-size: 20px;
     margin-bottom: 16px;
 }
-
 .btn:hover {
     background-color: #64ABD0;
     transition: .2s;
 }
-
 .container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     gap: 12px;
-
     &__rev {
         margin-bottom: 50px;
         // width: 350px;

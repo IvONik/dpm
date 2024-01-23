@@ -1,7 +1,7 @@
 <template>
   <!-- <nav>
     <NavComp/>    
-  </nav> -->
+  </nav> -->  
   <router-view/> 
 </template>
 

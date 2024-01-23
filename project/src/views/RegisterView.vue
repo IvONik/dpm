@@ -3,7 +3,8 @@
 
 
     <form class="card auth-card" @submit.prevent="submitHandler">
-        <div class="card-content"> <div class="title">Зарегистрироваться</div>
+        <div class="card-content">
+            <div class="title">Зарегистрироваться</div>
 
             <div class="input-field">
                 <label for="email">Email</label>
@@ -11,13 +12,13 @@
                 <input id="email" type="email" v-model.trim="email" required>
             </div>
             <div class="input-field">
-                <label for="password">Пароль</label>
+                <label for="password">Пароль (минимум 6 символов)</label>
                 <br>
                 <input id="password" type="password" v-model.trim="password" required>
             </div>
         </div>
         <div class="card-action">
-            <div>                
+            <div>
                 <button class="btn">Зарегистрироваться</button>
             </div>
 
@@ -29,43 +30,41 @@
 import NavComp from '@/components/NavComp.vue';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
-    export default {
-        data() {
-            return {
-                email: '',
-                password: '',
-            };
-        },
-        methods:{
-            async submitHandler() {
-                const auth = getAuth();
-                createUserWithEmailAndPassword(auth, this.email, this.password)
-                .then((userCredential) => {                    
+export default {
+    data() {
+        return {
+            email: '',
+            password: '',
+        };
+    },
+    methods: {
+        async submitHandler() {
+            const auth = getAuth();
+            createUserWithEmailAndPassword(auth, this.email, this.password)
+                .then((userCredential) => {
                     const user = userCredential.user;
-                    this.$router.push('/LK') 
+                    this.$router.push('/LK')
                 })
                 .catch((error) => {
                     const errorCode = error.code;
                     const errorMessage = error.message;
-                    // console.log(errorCode);
-                    // console.log(errorMessage);
-                    
-                    if(errorCode === "auth/email-already-in-use"){
-                        alert("Такой пользователь уже существует") 
-                    }  
-                    if(errorCode === "auth/weak-password")  {
+
+                    if (errorCode === "auth/email-already-in-use") {
+                        alert("Такой пользователь уже существует")
+                    }
+                    if (errorCode === "auth/weak-password") {
                         alert("Пароль должен состоять минимум из 6 символов")
-                    }               
+                    }
                 });
-                
-            },
+
         },
-        components: { NavComp } 
-    }
+    },
+    components: { NavComp }
+}
 </script>
 
 <style lang="scss" scoped>
-.card{
+.card {
     width: 70%;
     background-color: azure;
     border-radius: 15px;
@@ -73,10 +72,12 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
     margin-left: auto;
     margin-right: auto;
 }
+
 .input-field {
     margin-bottom: 16px;
 
 }
+
 input {
     width: 360px;
     height: 40px;
@@ -87,6 +88,7 @@ input {
     border: 0;
     font-size: 20px;
 }
+
 .btn {
     width: 360px;
     height: 40px;
@@ -96,8 +98,8 @@ input {
     font-size: 20px;
     margin-bottom: 10px;
 }
-.btn:hover{
-    background-color: rgb(142, 86, 245);
 
+.btn:hover {
+    background-color: rgb(142, 86, 245);
 }
 </style>

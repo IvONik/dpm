@@ -1,17 +1,21 @@
 import { createStore } from 'vuex'
-// import auth from './auth'
 
 export default createStore({
   state: {
-    auth: false
-  },
-  getters: {
-  },
-  mutations: {
+    auth: false,
+    userID: '',
+  },  
+  mutations: {  
+    IS_AUTH(state, boolean)  {
+      state.auth = boolean
+    },
+    SET_USERID(state, id){
+      state.userID = id
+    }
+
   },
   actions: {
   },
-  modules: {
-    // auth
-  }
+  getters: {    
+  },  
 })

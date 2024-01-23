@@ -1,5 +1,5 @@
 <template>
-    <NavComp />
+    <NavComp />    
     <div v-if="!this.$store.state.auth">
         <form class="card auth-card" @submit.prevent="submitHandler">
         <div class="card-content"> <div class="title">Войдите в личный кабинет</div>
@@ -37,7 +37,7 @@ import NavComp from '@/components/NavComp.vue';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import PersonalAccount from './PersonalAccount.vue';
 import LKComp from '@/components/LKComp.vue';
-
+import { mapState, mapMutations } from 'vuex';
 
 export default {
     name: 'DiplomSignupView',
@@ -50,28 +50,33 @@ export default {
     mounted() {
     },
     methods: {
-        async submitHandler() {           
-            const auth = getAuth();
+        ...mapMutations(['IS_AUTH','SET_USERID']),
+        async submitHandler() {  
+            const auth = await getAuth();
                 signInWithEmailAndPassword(auth, this.email, this.password)
                 .then((userCredential) => {                    
                     const user = userCredential.user;
-                    this.$router.push('/LK')   
-                    this.$store.state.auth = true                  
+                    this.$router.push('/LK')                     
+                    this.IS_AUTH(true)
+                    this.SET_USERID(user.uid)
+                    // this.$store.state.auth = true 
+                    // this.$store.commit('IS_AUTH', true); 
+                    // this.$store.state.userID =  user.uid  
+                    // console.log(this.$store.state.userID);  
+                    // console.log(this.$store.state.auth);          
                 })
                 .catch((error) => {
                     const errorCode = error.code;
                     const errorMessage = error.message;
                     alert('Проверьте логин или пароль')
-                });
-                
-        },
+                });                
+        },        
     },
     components: { NavComp, PersonalAccount, LKComp },
-    // computed:{
-    //     navButtonClass(){
-    //         return this.$store.state.auth ? 'active' : '';
-    //     }
-    // }
+   computed:{
+    ...mapState(['userID'])
+   }
+    
 };
 </script>
 
