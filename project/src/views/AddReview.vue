@@ -2,7 +2,7 @@
     <NavComp />
     <div v-if="isComplited === false">
         <div class="forma">
-            <input minlength="2" type="text" required placeholder="ваше имя" v-model="name" class="input input__name">
+            <input minlength="2" type="text" required placeholder="Ваше имя" v-model="name" class="input input__name">
             <textarea minlength="2" maxlength="420" required placeholder="текст" class="input input__text"
                 v-model="text"></textarea>
             <button class="btn" @click="addreview(arg, event)">оставить отзыв</button>
@@ -69,6 +69,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../assets/style/vars';
+input{
+    background-color: $colorText;
+}
+textarea{
+    background-color: #e2f0f6;;
+}
 .forma {
     display: flex;
     justify-content: center;

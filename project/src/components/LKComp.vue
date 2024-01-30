@@ -1,5 +1,5 @@
 <template>
-    <!-- {{ userID }} -->
+    
     <div class="page">
         <div class="part1">
             <div class="title">Записаться на прием</div>
@@ -21,6 +21,7 @@ export default {
     data() {
         return {
             buttons: 'Выйти',
+            loading: true,
         };
     },
     methods: {
@@ -28,24 +29,24 @@ export default {
         async logout() {
             const auth = getAuth();
             signOut(auth)
-            .then(() => {
+                .then(() => {
                 this.$router.push('/');
                 console.log('logout');
-                this.IS_AUTH(false)
-                this.SET_USERID('')
-                // this.$store.state.auth = false;
-                console.log(this.$store.state.auth); 
+                this.IS_AUTH(false);
+                this.SET_USERID('');                
+                // this.$store.state.auth = false;                
             }).catch((error) => {
                 console.log(error);
             });
         },
         addReview() {
-            this.$router.push('/addReview')
+            this.$router.push('/addReview');
         }
     },
-    computed:{
-    ...mapState(['auth'])
-   }
+    computed: {
+        ...mapState(['auth'])
+    },
+    
 }
 </script>
 

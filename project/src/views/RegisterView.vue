@@ -6,16 +6,30 @@
         <div class="card-content">
             <div class="title">Зарегистрироваться</div>
 
-            <div class="input-field">
+            <div class="input-field" 
+                :class="{'error__input': textUserVisible === true}"
+                @click="newInput" >
                 <label for="email">Email</label>
                 <br>
-                <input id="email" type="email" v-model.trim="email" required>
+                <input id="email" 
+                type="email" 
+                v-model.trim="email" 
+                required>
+                <p v-show="textUserVisible" class="error__input">{{ textUser }}</p>
             </div>
-            <div class="input-field">
+
+            <div class="input-field"
+                :class="{'error__input': textPasswordVisible === true}"
+                @click="newInput">
                 <label for="password">Пароль (минимум 6 символов)</label>
-                <br>
-                <input id="password" type="password" v-model.trim="password" required>
+                <br>                
+                <input id="password" 
+                type="password" 
+                v-model.trim="password" 
+                required>
+                <p v-show="textPasswordVisible" class="error__inpu">{{ textPassword }}</p>
             </div>
+
         </div>
         <div class="card-action">
             <div>
@@ -35,6 +49,10 @@ export default {
         return {
             email: '',
             password: '',
+            textUser: 'Такой пользователь уже существует',
+            textPassword: 'Пароль должен состоять минимум из 6 символов',
+            textUserVisible: false,
+            textPasswordVisible: false,
         };
     },
     methods: {
@@ -49,15 +67,18 @@ export default {
                     const errorCode = error.code;
                     const errorMessage = error.message;
 
-                    if (errorCode === "auth/email-already-in-use") {
-                        alert("Такой пользователь уже существует")
+                    if (errorCode === "auth/email-already-in-use") {                        
+                        this.textUserVisible = true
                     }
                     if (errorCode === "auth/weak-password") {
-                        alert("Пароль должен состоять минимум из 6 символов")
+                        this.textPasswordVisible = true
                     }
                 });
-
         },
+        newInput(){
+            this.textUserVisible = false;
+            this.textPasswordVisible = false;
+        }
     },
     components: { NavComp }
 }
@@ -101,5 +122,10 @@ input {
 
 .btn:hover {
     background-color: rgb(142, 86, 245);
+}
+.error__input{
+    color: red;
+    background-color: rgb(52, 35, 35);
+    border-radius: 15px;
 }
 </style>

@@ -6,12 +6,17 @@
         <button class="btn" @click="sortDesc()">Сортировать (сначала новые)</button>
         <button class="btn" @click="sortAsc()">Сортировать (сначала старые)</button>
     </div>
+    
+    <div v-if="loading === true">
+        <LoaderComp/>
+    </div>
+    
     <div class="container">
         <div v-for="item in paginatedReviews" :key="item.id" class="container__rev">
             <div class="container__rev__title">{{ item.name }}</div>{{ item.text }}
-        </div>
-        
+        </div>        
     </div>
+    
         <div class="pagination">            
             <div v-for="page in pages" class="pages"
             @click="pageClick(page)"
@@ -25,6 +30,7 @@
 import { db } from '@/main.js';
 import { collection, query, where, getDocs } from "firebase/firestore";
 import NavComp from '@/components/NavComp.vue';
+import LoaderComp from '@/components/LoaderComp.vue';
 
 export default {
     data() {
@@ -32,6 +38,7 @@ export default {
             reviews: [],
             reviewsPerPage: 6,
             pageNumber: 1,
+            loading: true,
         };
     },
     methods: {
@@ -62,15 +69,14 @@ export default {
                 const q = query(collection(db, "reviews"));
                 const querySnapshot = await getDocs(q);
                 querySnapshot.forEach((doc) => {
-                    this.reviews.push(doc.data())                    
+                    this.reviews.push(doc.data()) 
+                    this.loading = false;                   
                 });
+                
             } catch (err) {
                 console.error("Ошибка при получении данных из Firestore:", err);
             }      
-    },
-
-    components: { NavComp },
-    
+    },  
     computed:{
         pages(){           
             return Math.ceil(this.reviews.length / this.reviewsPerPage);
@@ -80,7 +86,8 @@ export default {
             let to = from + this.reviewsPerPage;
             return this.reviews.slice(from, to);
         }
-    } 
+    },
+    components: { NavComp , LoaderComp},
 };
 
 </script>
@@ -89,12 +96,18 @@ export default {
 @import '../assets/style/_vars.scss';
 
 .buttons {
-    display: grid;
+    // display: grid;
+    // grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    // gap: 12px;
+    display: grid;    
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     gap: 12px;
+    justify-items: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 .btn {
-    // width: 350px;
+    width: 350px;
     height: 40px;
     border-radius: 15px;
     background-color: rgb(148, 165, 196);
@@ -109,10 +122,12 @@ export default {
 .container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 12px;
+    gap: 12px;   
+    // height: 750px;
+    
+    
     &__rev {
-        margin-bottom: 50px;
-        // width: 350px;
+        margin-bottom: 30px;        
         height: 350px;
         color: $colorText;
         display: flex;
@@ -136,7 +151,7 @@ export default {
     display: flex;    
     flex-wrap: wrap;
     justify-content: center;
-    gap: 4px;
+    gap: 4px;   
     
 }
 .pages{

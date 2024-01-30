@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
     <div class="siteWidth">
     <div class="bigBox">
       <div  class="box" >        
@@ -13,9 +13,9 @@
 <script>
 export default {
     name: 'DiplomButtonComp',
-    props:{
-        button: Object,
-    },
+    // props:{
+    //     buttonProp: Object,
+    // },
     data() {
         return {
             active: false,
@@ -29,4 +29,4 @@ export default {
 
 <style lang="scss" scoped>
 
-</style>
+</style> -->
