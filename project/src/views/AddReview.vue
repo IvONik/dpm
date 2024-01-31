@@ -47,13 +47,13 @@ export default {
         //     }
         async addreview() {
             try {
-                if (this.name && this.text >= 2) {
+                if (this.name.length && this.text.length >= 2) {
                     const docRef = await addDoc(collection(db, "reviews"), {
                         name: this.name,
                         text: this.text,
                         date: new Date().getTime(),
                     });
-                    console.log("Document written with ID: ", docRef.id);
+                    // console.log("Document written with ID: ", docRef.id);
                     this.isComplited = true;
                 }
                 else {

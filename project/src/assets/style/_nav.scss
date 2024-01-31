@@ -20,20 +20,35 @@
         @include border;    
         align-items: center;        
         font-size: 2rem;        
-        justify-content: center;       
+        justify-content: space-around;      
     }
 }
 
-.box__item:hover {
+.box__item:hover{
     background-color: rgba(124, 161, 165, 0.9);
     transition: .2s;
-    color: #141618;
+    color: #141618;    
 }
 .active{
     background-color: rgba(124, 161, 165, 0.9);   
-    transition: .2s;    
-    color: rgb(197, 221, 242);
+    transition: .3s ease;    
+    // color: rgb(197, 221, 242);
+    color: white;
+
 }
+.png {
+    width: 50px;     
+    transition: filter 0.3s ease;     
+}
+  
+.box__item:hover .png {
+    filter: invert(1); 
+}
+  
+.box__item.active .png {
+    filter: invert(1); 
+}
+
 
 @media screen and (max-width: 1120px){
     .box{
@@ -44,6 +59,7 @@
         height: 70px; 
     }
 }
+
 @media screen and (max-width: 1098px){
     .box{
         grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
@@ -53,27 +69,35 @@
         height: 75px; 
     }
 }
+
 @media screen and (max-width: 745px){
     .box{
         grid-template-columns: repeat(auto-fill, minmax(245px, 1fr));
         gap: 6px;
-        padding: 8px 0 8px 0;
-        
+        padding: 8px 0 8px 0;        
     }  
     .box__item{       
         height: 50px; 
-    }  
+    } 
+    .png {
+        width: 40px;   
+    } 
+    
 }
+
 @media screen and (max-width: 495px){
     .box{
-        grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));        
-    }   
+        grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); 
+        margin-bottom: 8px;         
+    }        
 }
+
 @media screen and (max-width: 425px) {
     .box{
         grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
         gap: 4px;
         padding: 6px 0 0 6px;
-    }    
+    }   
+      
     
 }

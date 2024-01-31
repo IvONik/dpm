@@ -1,12 +1,34 @@
 <template>
-    <div class="box">
-        <router-link class="box__item text" v-for="button in linkArray" :key="button.id" :to="button.url"
-            :class="{ 'active': isLinkActive(button.url) }">{{ button.nameLink }}
-        </router-link>
+    <div v-if="smallScreen === true">
+        <div class="box">
+            <router-link class="box__item text" v-for="button in linkArray" :key="button.id" :to="button.url"
+                :class="{ 'active': isLinkActive(button.url) }">
+                <img :src="button.img" alt="img" class="png">
+            </router-link>
+        </div>
+    </div>
+
+    <div v-else>
+        <div class="box">
+            <router-link class="box__item text" v-for="button in linkArray" :key="button.id" :to="button.url"
+                :class="{ 'active': isLinkActive(button.url) }">
+                {{ button.nameLink }}
+                <img :src="button.img" alt="img" class="png">
+            </router-link>
+        </div>
     </div>
 </template>
 
 <script>
+
+import homeBG from '@/assets/img/home_2.png';
+import doctorimg from '@/assets/img/doctor.png';
+import pinimg from '@/assets/img/phone-call.png';
+import starimg from '@/assets/img/rating.png';
+import tooth from '@/assets/img/tooth.png';
+import lk from '@/assets/img/client.png';
+
+
 export default {
     name: 'DiplomNavComp',
 
@@ -17,49 +39,40 @@ export default {
                     id: '0',
                     nameLink: 'Главная',
                     url: '/',
+                    img: homeBG,
                 },
                 {
                     id: '1',
                     nameLink: 'Лечение',
                     url: '/therapy',
+                    img: tooth,
                 },
-                // {
-                //     id: '2',
-                //     nameLink: 'Протезирование',
-                //     url: '/prosthetics',            
-                // },
-                // {
-                //     id: '3',
-                //     nameLink: 'Установка брекет Систем',
-                //     url: '/bracket',
-                // },
-                // {
-                //     id: '4',
-                //     nameLink: 'Профессиональная чистка',
-                //     url: '/clean',
-                // },
                 {
                     id: '5',
                     nameLink: 'Как нас найти',
                     url: '/contact',
+                    img: pinimg,
                 },
                 {
                     id: '6',
                     nameLink: 'Наши врачи',
                     url: '/doctors',
+                    img: doctorimg,
                 },
                 {
                     id: '7',
                     nameLink: 'Отзывы',
                     url: '/reviews',
+                    img: starimg,
                 },
                 {
                     id: '8',
                     nameLink: 'Личный кабинет',
                     url: '/signup',
+                    img: lk,
                 },
-
-            ]
+            ],
+            smallScreen: false,
         };
     },
     computed: {
@@ -71,49 +84,19 @@ export default {
         isLinkActive(url) {
             return this.$route.path === url || (url === '/signup' && this.$route.path === '/LK' && this.$route.path === '/addReview');
         },
+        onResize() {
+            this.smallScreen = window.innerWidth <= 425;
+        }
     },
+    created() {
+        window.addEventListener('resize', this.onResize);
+        this.onResize();
+    },
+    destroyed() {
+        window.removeEventListener('resize', this.onResize)
+    },
+
 };
 </script>
 
-<style lang="scss" scoped>
-@import '../assets/style/_vars.scss';
-
-// .box {    
-//     // width: 100vw; 
-//     display: grid;    
-//     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-//     gap: 20px;
-//     justify-items: center;    
-//     position: sticky;
-//     top: 0;
-//     // position: fixed;
-//     // top: 0;   
-//     background-color:rgb(30, 52, 76) ;    
-//     padding-bottom: 16px;
-//     margin-bottom: 25px;
-//     box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.7); 
-
-
-//     &__item {
-//         width: 350px;
-//         height: 90px;          
-//         color: $colorText;           
-//         display: flex;  
-//         @include border;    
-//         align-items: center;        
-//         font-size: 2rem;        
-//         justify-content: center;       
-//     }
-// }
-
-// .box__item:hover {
-//     background-color: rgba(124, 161, 165, 0.9);
-//     transition: .2s;
-//     color: #141618;
-// }
-// .active{
-//     background-color: rgba(124, 161, 165, 0.9);   
-//     transition: .2s;    
-//     color: rgb(197, 221, 242);
-// }
-</style>
+<style lang="scss" scoped></style>
