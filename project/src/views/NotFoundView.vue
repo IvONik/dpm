@@ -1,17 +1,47 @@
 <template>
     <div>
-        <NavComp/>
-        404 Not Found
+        <NavComp />
+        <div class="notFound">
+            <div class="title">404 Not Found</div>
+            <div class="text">Мы вернемся на главный экран через:</div>
+            <div class="timer title">{{ timer }} </div>
+            <div class="text">секунд.</div>
+        </div>
     </div>
 </template>
 
 <script>
 import NavComp from '@/components/NavComp.vue';
-    export default {
-        components: { NavComp }
+export default {
+    data() {
+        return {
+            timer: 20,
+            timeReturnTohome: null,
+        }
+    },
+    components: { NavComp },
+    mounted() {
+        this.timeReturnTohome = setInterval(() => {
+            if (this.timer === 0) {
+                this.$router.push('/')
+            } else {
+                this.timer--
+            }
+
+        }, 1000)
     }
+}
 </script>
 
 <style lang="scss" scoped>
+.notFound {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
+.timer {
+    margin-bottom: 10px;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 1);
+}
 </style>

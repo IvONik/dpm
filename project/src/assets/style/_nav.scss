@@ -5,6 +5,7 @@
     gap: 20px;
     justify-items: center;    
     position: sticky;
+    // position: fixed;
     top: 0;      
     background-color:rgb(30, 52, 76); 
     margin-bottom: 25px;   
@@ -20,7 +21,9 @@
         @include border;    
         align-items: center;        
         font-size: 2rem;        
-        justify-content: space-around;      
+        // justify-content: space-around;  
+        padding: 0 16px 0 16px;
+        justify-content: space-between;
     }
 }
 
@@ -31,7 +34,7 @@
 }
 .active{
     background-color: rgba(124, 161, 165, 0.9);   
-    transition: .3s ease;    
+    transition: .2s ease;    
     // color: rgb(197, 221, 242);
     color: white;
 
@@ -97,7 +100,9 @@
         grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
         gap: 4px;
         padding: 6px 0 0 6px;
-    }   
-      
+        &__item{
+            justify-content: space-around;  
+        }
+    }        
     
 }

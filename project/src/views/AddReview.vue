@@ -80,9 +80,11 @@ textarea{
     display: flex;
     justify-content: center;
     flex-direction: column;
-    width: 360px;
+    max-width: 360px;
     margin-left: auto;
     margin-right: auto;
+    align-items: center;
+
 }
 
 .input__name {
@@ -105,7 +107,7 @@ textarea{
 }
 
 .btn {
-    width: 360px;
+    max-width: 360px;
     height: 40px;
     border-radius: 15px;
     background-color: rgb(148, 165, 196);
