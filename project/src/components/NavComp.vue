@@ -68,7 +68,7 @@ export default {
                 {
                     id: '8',
                     nameLink: 'Личный кабинет',
-                    url: '/signup',
+                    url: '/lk',
                     img: lk,
                 },
             ],
@@ -82,7 +82,12 @@ export default {
     },
     methods: {
         isLinkActive(url) {
-            return this.$route.path === url || (url === '/signup' && this.$route.path === '/LK' && this.$route.path === '/addReview');
+            // return this.$route.path === url || (url === '/signup' && this.$route.path === '/LK' && this.$route.path === '/addReview');
+            return this.$route.path === url || (url === '/lk' && this.$route.path.startsWith('/lk/'));
+
+
+        
+
         },
         onResize() {
             this.smallScreen = window.innerWidth <= 425;

@@ -2,7 +2,7 @@
     <div>
         <NavComp />
         <div class="notFound">
-            <div class="title">404 Not Found</div>
+            <div class="title">404 Такой страницы нет.</div>
             <div class="text">Мы вернемся на главный экран через:</div>
             <div class="timer title">{{ timer }} </div>
             <div class="text">секунд.</div>
@@ -15,20 +15,33 @@ import NavComp from '@/components/NavComp.vue';
 export default {
     data() {
         return {
-            timer: 20,
+            timer: 10,
             timeReturnTohome: null,
         }
-    },
-    components: { NavComp },
-    mounted() {
-        this.timeReturnTohome = setInterval(() => {
-            if (this.timer === 0) {
-                this.$router.push('/')
+    },   
+    components: { NavComp },       
+    methods:{
+        startTimer(){
+            this.timeReturnTohome = setInterval(() => {
+            if (this.timer === 0) {                
+                clearTimeout(this.timeReturnTohome)
+                this.$router.push('/')               
             } else {
                 this.timer--
             }
-
-        }, 1000)
+            }, 1000) 
+        },
+        stopTimer(){
+            if (this.timer === 0) {
+                clearTimeout(this.timeReturnTohome)
+            }
+        },
+    },
+    mounted(){
+        this.startTimer()
+    },
+    destroyed(){
+        this.stopTimer()
     }
 }
 </script>

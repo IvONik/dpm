@@ -20,54 +20,11 @@ import LKComp from '@/components/LKComp.vue';
 import NavComp from '@/components/NavComp.vue';
 // import { getAuth, signOut } from "firebase/auth";
 
-    export default {
-        // data() {
-        //     return {
-        //         buttons: 'Выйти',
-        //     };
-        // },
-        // methods:{
-        //     async logout(){
-        //         const auth = getAuth();
-        //         signOut(auth).then(() => {                
-        //         this.$router.push('/') 
-        //         console.log('logout');
-        //         this.$store.state.auth = false
-        //         }).catch((error) => {
-        //         // An error happened.
-        //         });
-        //     }
-        // },
-        // computed:{
-
-        // },
+    export default {        
         components: { NavComp, LKComp }
-}
+    }
 </script>
 
 <style lang="scss" scoped>
-// .page{
-//     display: flex;
-//     justify-content: space-around;
-// }
-// .part1{   
-//     height: 400px;
-// }
 
-// .small__part{
-//     width: 30%;
-// }
-// .btn {
-//     width: 360px;
-//     height: 40px;
-//     border-radius: 15px;
-//     background-color: #64ABD0;
-//     border: 0;
-//     font-size: 20px;
-//     margin-bottom: 10px;
-// }
-// .btn:hover{
-//     background-color: #FFD973;
-
-// }
 </style>

@@ -1,12 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 import TherapyView from '@/views/TherapyView.vue'
-import BracketView from '@/views/BracketView.vue'
-import CleanView from '@/views/CleanView.vue'
 import ContactView from '@/views/ContactView.vue'
 import DoctorsView from '@/views/DoctorsView.vue'
 import ReviewsView from '@/views/ReviewsView.vue'
-import ProstheticsView from '@/views/ProstheticsView.vue'
 import NotFoundView from '@/views/NotFoundView.vue'
 import AddReview from '@/views/AddReview.vue'
 
@@ -21,22 +18,7 @@ const routes = [
         path: '/therapy',
         name: 'therapy',
         component: TherapyView,
-      },  
-      {
-        path: '/prosthetics',
-        name: 'prosthetics',
-        component: ProstheticsView,
-      },
-      {
-        path: '/bracket',
-        name: 'bracket',
-        component: BracketView,
-      },
-      {
-        path: '/clean',
-        name: 'clean',
-        component: CleanView,
-      },
+      }, 
       {
         path: '/contact',
         name: 'contact',
@@ -52,11 +34,17 @@ const routes = [
         name: 'reviews',
         component: ReviewsView,
       },
+      // {
+      //   path: '/signup',
+      //   name: 'signup',
+      //   // which is lazy-loaded when the route is visited.        
+      //   component: () => import('../views/SignupView.vue')
+      // },
       {
-        path: '/signup',
-        name: 'signup',
+        path: '/lk/:userID?',
+        name: 'lk',
         // which is lazy-loaded when the route is visited.        
-        component: () => import('../views/SignupView.vue')
+        component: () => import('../views/SignupView.vue')    
       },
       {
         path: '/register',
@@ -64,16 +52,20 @@ const routes = [
         // which is lazy-loaded when the route is visited.        
         component: () => import('../views/RegisterView.vue')
       },
-      {
-        path: '/LK',
-        name: 'LK',
-        // which is lazy-loaded when the route is visited.        
-        component: () => import('../views/PersonalAccount.vue')
-      },
+      // {
+      //   path: '/LK',
+      //   name: 'LK',
+      //   // which is lazy-loaded when the route is visited.        
+      //   component: () => import('../views/PersonalAccount.vue')
+      // },
+      // {
+      //   path: '/addReview',
+      //   name: 'addReview',               
+      //   component: () => import('../views/AddReview.vue')
+      // },
       {
         path: '/addReview',
-        name: 'addReview',
-        // which is lazy-loaded when the route is visited.        
+        name: 'addReview',               
         component: () => import('../views/AddReview.vue')
       },
       {

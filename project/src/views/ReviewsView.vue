@@ -13,7 +13,8 @@
 
     <div class="container">
         <div v-for="item in paginatedReviews" :key="item.id" class="container__rev">
-            <div class="container__rev__title">{{ item.name }}</div>{{ item.text }}
+            <div class="container__rev__title">{{ item.name }}</div>
+            <div class="container__scroll">{{ item.text }}</div>
         </div>
     </div>
 
@@ -42,7 +43,7 @@ export default {
     methods: {
         add() {
             if (this.$store.state.auth === false) {
-                this.$router.push('/signup')
+                this.$router.push('/lk/') 
             } else {
                 this.$router.push('/addReview')
             }

@@ -40,7 +40,9 @@ export default {
             });
         },
         addReview() {
+            // this.$router.push('/addReview');
             this.$router.push('/addReview');
+
         }
     },
     computed: {

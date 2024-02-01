@@ -56,7 +56,8 @@ export default {
                 signInWithEmailAndPassword(auth, this.email, this.password)
                 .then((userCredential) => {                    
                     const user = userCredential.user;
-                    this.$router.push('/LK')                     
+                    // this.$router.push('/LK')   
+                    this.$router.push('/lk/'+ user.uid) 
                     this.IS_AUTH(true)
                     this.SET_USERID(user.uid)
                     // this.$store.state.auth = true 
@@ -81,50 +82,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// .label{
-//     margin-bottom: 0px;
-//     color: #c1d9f0;
-//     //color: $colorText;    
-// }
-// .card{    
-//     font-size: 20px;    
-//     width: 70%;
-//     background-color: #2E3784;
-//     border-radius: 15px;
-//     padding: 20px;
-//     margin-left: auto;
-//     margin-right: auto;
-// }
-// .input-field {
-//     margin-bottom: 8px;
-// }
-// input {
-//     font-size: 20px;
-//     width: 70%;
-//     height: 40px;
-//     background-color: rgb(240, 243, 246);
-//     border-radius: 15px;
-//     margin-bottom: 8px;
-//     padding-left: 15px;
-//     border: 0;    
-// }
-// .btn {    
-//     width: 70%;
-//     height: 40px;
-//     border-radius: 15px;
-//     background-color: rgb(148, 165, 196);
-//     border: 0;
-//     font-size: 20px;
-//     margin-bottom: 8px;
-// }
-// .btn:hover{    
-//     background-color: #64ABD0;
-//     transition: .2s;
-
-// }
-// .active{
-//     background-color: rgba(124, 161, 165, 0.9);   
-//     transition: .2s;    
-//     color: rgb(197, 221, 242);
-// }
 </style>

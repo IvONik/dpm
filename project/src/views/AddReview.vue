@@ -29,22 +29,7 @@ export default {
         }
 
     },
-    methods: {
-        //    async checkReviewsIsSend(){
-        //     const userId = this.$store.state.userID;
-        //     console.log(userId);
-        //         try {
-        //             const q = query(collection(db, "reviews"), where("uid", "==", userId));
-        //             const querySnapshot = await getDocs(q);
-
-        //             querySnapshot.forEach((doc) => {            
-        //             console.log(doc.id, " => ", doc.data());
-        //             });
-        //         } catch (error) {
-        //             console.error("Error fetching data: ", error);
-        //         }          
-
-        //     }
+    methods: {        
         async addreview() {
             try {
                 if (this.name.length && this.text.length >= 2) {

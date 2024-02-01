@@ -8,7 +8,8 @@
       <ul class="right__part">
         <li v-for="item in addresses" :key="item.id" class="right__part__item">
           {{ item.address }}<br>
-          {{ item.worksTime }}
+          {{ item.worksTime }}<br>
+          {{  item.phone }}
         </li>
       </ul>
 
@@ -33,11 +34,13 @@ export default {
           id: 1,
           address: 'ул. Константина Заслонова, 2',
           worksTime: 'пн-пт: 9:00 - 20:00, сб-вс: по записи',
+          phone: '8(812)123-45-56',
         },
         {
           id: 2,
           address: 'Клинский проспект, 5/17',
           worksTime: 'пн-пт: 9:00 - 20:00, \n сб-вс: по записи',
+          phone: '8(812)789-45-56',
         }
       ],
     };
@@ -70,7 +73,7 @@ export default {
             position = { lat: 59.91627, lng: 30.32677 };
           }
 
-          const contentString = `<p>${address.address}</p><p>${address.worksTime}</p>`;
+          const contentString = `<p>${address.address}</p><p>${address.worksTime}</p><p>${address.phone}</p>`;
           const infowindow = new google.maps.InfoWindow({
             content: contentString,
             ariaLabel: "Address Info",
