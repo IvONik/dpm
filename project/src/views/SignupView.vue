@@ -1,5 +1,5 @@
 <template>
-    <NavComp />    
+    
     <div v-if="!this.$store.state.auth">
         <form class="card auth-card" @submit.prevent="submitHandler">
         <div class="card-content"> <div class="title">Войдите в личный кабинет</div>
@@ -26,14 +26,12 @@
         </div>
     </form>
     </div>
-    <div v-if="this.$store.state.auth"><LKComp/>
-        
-    </div>
+    <LKComp v-if="$store.state.auth" />
     
 </template>
 
 <script>
-import NavComp from '@/components/NavComp.vue';
+
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import PersonalAccount from './PersonalAccount.vue';
 import LKComp from '@/components/LKComp.vue';
@@ -55,16 +53,12 @@ export default {
             const auth = await getAuth();
                 signInWithEmailAndPassword(auth, this.email, this.password)
                 .then((userCredential) => {                    
-                    const user = userCredential.user;
-                    // this.$router.push('/LK')   
-                    this.$router.push('/lk/'+ user.uid) 
+                    const user = userCredential.user;                      
+                    this.$router.push('/lk/'+ user.uid)                     
+
                     this.IS_AUTH(true)
                     this.SET_USERID(user.uid)
-                    // this.$store.state.auth = true 
-                    // this.$store.commit('IS_AUTH', true); 
-                    // this.$store.state.userID =  user.uid  
-                    // console.log(this.$store.state.userID);  
-                    // console.log(this.$store.state.auth);          
+                             
                 })
                 .catch((error) => {
                     const errorCode = error.code;
@@ -73,11 +67,11 @@ export default {
                 });                
         },        
     },
-    components: { NavComp, PersonalAccount, LKComp },
+    components: {         
+        PersonalAccount, LKComp },
    computed:{
     ...mapState(['userID'])
-   }
-    
+   },    
 };
 </script>
 

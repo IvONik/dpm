@@ -40,11 +40,17 @@ const routes = [
       //   // which is lazy-loaded when the route is visited.        
       //   component: () => import('../views/SignupView.vue')
       // },
+      // {
+      //   path: '/lk',
+      //   redirect: '/signup' 
+      // },
       {
         path: '/lk/:userID?',
         name: 'lk',
         // which is lazy-loaded when the route is visited.        
-        component: () => import('../views/SignupView.vue')    
+       
+        component: () => import('../views/SignupView.vue') 
+        // component: () => import('../views/PersonalAccount.vue')  
       },
       {
         path: '/register',

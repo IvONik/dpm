@@ -1,6 +1,6 @@
 <template>
     <div>
-        <NavComp/>
+        <!-- <NavComp/> -->
         <div class="title">{{ this.title }}</div>
         <ul>
             <li v-for="item in list" :key="item.id" class="text">{{ item }}</li>
@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import NavComp from '@/components/NavComp.vue';
+// import NavComp from '@/components/NavComp.vue';
 
 export default {
     name: 'DiplomHomeView',
@@ -30,7 +30,7 @@ export default {
     mounted() {
     },
     methods: {},
-    components: { NavComp }
+    // components: { NavComp }
 };
 </script>
 

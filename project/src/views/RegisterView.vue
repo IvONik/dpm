@@ -1,32 +1,27 @@
 <template>
-    <NavComp />
-
-
+    
     <form class="card auth-card" @submit.prevent="submitHandler">
         <div class="card-content">
             <div class="title">Зарегистрироваться</div>
 
-            <div class="input-field" 
-                :class="{'error__input': textUserVisible === true}"
-                @click="newInput" >
+            <div class="input-field" :class="{ 'error__input': textUserVisible === true }" @click="newInput">
                 <label for="email">Email</label>
                 <br>
-                <input id="email" 
-                type="email" 
-                v-model.trim="email" 
-                required>
+                <input id="email" type="email" v-model.trim="email" required>
                 <p v-show="textUserVisible" class="error__input">{{ textUser }}</p>
             </div>
 
-            <div class="input-field"
-                :class="{'error__input': textPasswordVisible === true}"
-                @click="newInput">
+            <div class="input-field" @click="newInput">
+                <label for="name">Ваше имя</label>
+                <br>
+                <input id="name" type="text" v-model.trim="name" required>
+                <p v-show="textNameVisible" class="error__input">{{ textName }}</p>
+            </div>
+
+            <div class="input-field" :class="{ 'error__input': textPasswordVisible === true }" @click="newInput">
                 <label for="password">Пароль (минимум 6 символов)</label>
-                <br>                
-                <input id="password" 
-                type="password" 
-                v-model.trim="password" 
-                required>
+                <br>
+                <input id="password" type="password" v-model.trim="password" required>
                 <p v-show="textPasswordVisible" class="error__inpu">{{ textPassword }}</p>
             </div>
 
@@ -35,52 +30,64 @@
             <div>
                 <button class="btn">Зарегистрироваться</button>
             </div>
-
         </div>
     </form>
 </template>
 
 <script>
-import NavComp from '@/components/NavComp.vue';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { mapState, mapMutations } from 'vuex';
 
 export default {
     data() {
         return {
             email: '',
             password: '',
+            name: '',
             textUser: 'Такой пользователь уже существует',
             textPassword: 'Пароль должен состоять минимум из 6 символов',
+            textName: 'Нам важно знать ваше имя',
             textUserVisible: false,
             textPasswordVisible: false,
+            textNameVisible: false,
         };
     },
     methods: {
-        async submitHandler() {
-            const auth = getAuth();
-            createUserWithEmailAndPassword(auth, this.email, this.password)
-                .then((userCredential) => {
-                    const user = userCredential.user;
-                    this.$router.push('/LK')
-                })
-                .catch((error) => {
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
+        ...mapMutations(['IS_AUTH','SET_USERID']),       
 
-                    if (errorCode === "auth/email-already-in-use") {                        
-                        this.textUserVisible = true
-                    }
-                    if (errorCode === "auth/weak-password") {
-                        this.textPasswordVisible = true
-                    }
-                });
+        async submitHandler() {
+            try {
+                const auth = getAuth();
+                const userCredential = await createUserWithEmailAndPassword(auth, this.email, this.password, this.name);
+                const user = userCredential.user;                
+                this.$router.push('/lk/' + user.uid);
+                this.IS_AUTH(true)
+                this.SET_USERID(user.uid)
+                
+            } catch (error) {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+
+                if (errorCode === "auth/email-already-in-use") {
+                    this.textUserVisible = true;
+                }
+                if (errorCode === "auth/weak-password") {
+                    this.textPasswordVisible = true;
+                }
+            }
         },
-        newInput(){
+        
+        newInput() {
             this.textUserVisible = false;
             this.textPasswordVisible = false;
+          
+
         }
     },
-    components: { NavComp }
+    computed:{
+    ...mapState(['userID'])
+   },
+   
 }
 </script>
 
@@ -123,7 +130,8 @@ input {
 .btn:hover {
     background-color: rgb(142, 86, 245);
 }
-.error__input{
+
+.error__input {
     color: red;
     background-color: rgb(52, 35, 35);
     border-radius: 15px;

@@ -3,7 +3,7 @@
         <h2>Кирьянова Ольга</h2>
         <img :src="img"  class="img">
         <p><span>Образование: </span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestiae, eius?</p>
-        <p><span>Опыт работы: </span>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+        <p><span>Опыт работы: </span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
         <p>Lorem, ipsum dolor.</p>
 
     </div>

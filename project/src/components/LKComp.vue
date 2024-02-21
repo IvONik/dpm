@@ -1,5 +1,4 @@
 <template>
-    
     <div class="page">
         <div class="part1">
             <div class="title">Записаться на прием</div>
@@ -30,17 +29,17 @@ export default {
             const auth = getAuth();
             signOut(auth)
                 .then(() => {
-                this.$router.push('/');
-                console.log('logout');
-                this.IS_AUTH(false);
-                this.SET_USERID('');                
-                // this.$store.state.auth = false;                
-            }).catch((error) => {
-                console.log(error);
-            });
+                    this.$router.push('/');
+                    console.log('logout');
+                    this.IS_AUTH(false);
+                    this.SET_USERID('');
+
+                }).catch((error) => {
+                    console.log(error);
+                });
         },
         addReview() {
-            // this.$router.push('/addReview');
+
             this.$router.push('/addReview');
 
         }
@@ -48,7 +47,7 @@ export default {
     computed: {
         ...mapState(['auth'])
     },
-    
+
 }
 </script>
 

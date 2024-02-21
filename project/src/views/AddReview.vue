@@ -1,5 +1,5 @@
 <template>
-    <NavComp />
+    <!-- <NavComp /> -->
     <div v-if="isComplited === false">
         <div class="forma">
             <input minlength="2" type="text" required placeholder="Ваше имя" v-model="name" class="input input__name">
@@ -18,7 +18,7 @@ import { db } from '@/main.js';
 import { collection, addDoc } from "firebase/firestore";
 // import { collection, query, where, getDocs } from "firebase/firestore"; 
 
-import NavComp from '@/components/NavComp.vue';
+// import NavComp from '@/components/NavComp.vue';
 export default {
     data() {
         return {
@@ -49,7 +49,7 @@ export default {
             }
         }
     },
-    components: { NavComp }
+    // components: { NavComp }
 }
 </script>
 

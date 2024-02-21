@@ -1,5 +1,5 @@
 <template>
-    <NavComp />
+    <!-- <NavComp /> -->
     <div class="title">Ваши отзывы</div>
     <div class="buttons">
         <button class="btn" @click="add()">Оставить отзыв</button>
@@ -28,7 +28,7 @@
 <script>
 import { db } from '@/main.js';
 import { collection, query, where, getDocs } from "firebase/firestore";
-import NavComp from '@/components/NavComp.vue';
+// import NavComp from '@/components/NavComp.vue';
 import LoaderComp from '@/components/LoaderComp.vue';
 
 export default {
@@ -86,7 +86,9 @@ export default {
             return this.reviews.slice(from, to);
         }
     },
-    components: { NavComp, LoaderComp },
+    components: { 
+        // NavComp, 
+        LoaderComp },
 };
 
 </script>

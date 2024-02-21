@@ -1,6 +1,5 @@
 <template>
-    
-        <NavComp/>
+        <!-- <NavComp/> -->
         <div class="title">Наши доктора</div>
         <div class="container">
             <div class="part1" >
@@ -18,7 +17,6 @@
                 </div>                
             </div>
         </div>
-    
 </template>
 
 <script>
@@ -26,7 +24,7 @@ import DoctorIvanov from '@/components/DoctorIvanov.vue';
 import DoctorKiryanova from '@/components/DoctorKiryanova.vue';
 import DoctorSurikov from '@/components/DoctorSurikov.vue';
 import DoctorVasilevaComp from '@/components/DoctorVasilevaComp.vue';
-import NavComp from '@/components/NavComp.vue';
+// import NavComp from '@/components/NavComp.vue';
 
 export default {
     name: 'DiplomDoctorsView',
@@ -63,13 +61,9 @@ export default {
                 },
                 
             ],
-            currentId: '1',           
-            
+            currentId: '1', 
         };
-    },
-    mounted() {
-        
-    },
+    },   
     methods: {
         show(id){           
             this.currentId = id 
@@ -79,7 +73,11 @@ export default {
     created(){
         this.active = this.currentId;
     },
-    components: { NavComp, DoctorVasilevaComp, DoctorKiryanova, DoctorSurikov, DoctorIvanov }
+    components: { 
+        // NavComp, 
+        DoctorVasilevaComp, 
+        DoctorKiryanova, DoctorSurikov, DoctorIvanov 
+    },    
 };
 </script>
 

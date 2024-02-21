@@ -1,9 +1,9 @@
 <template>
     <div>
-        <NavComp/>
-        <LKComp/>
         
-            <!-- <div class="page">
+        <LKComp />
+
+        <!-- <div class="page">
                 <div class="part1">
                     <div class="title">Записаться на прием</div>
                     здесь будет календарь
@@ -17,14 +17,14 @@
 
 <script>
 import LKComp from '@/components/LKComp.vue';
-import NavComp from '@/components/NavComp.vue';
 // import { getAuth, signOut } from "firebase/auth";
 
-    export default {        
-        components: { NavComp, LKComp }
-    }
+export default {
+    components: {
+        LKComp
+    },
+   
+}
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

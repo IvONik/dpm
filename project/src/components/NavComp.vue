@@ -1,21 +1,21 @@
 <template>
     <div v-if="smallScreen === true">
-        <div class="box">
+        <nav class="box">
             <router-link class="box__item text" v-for="button in linkArray" :key="button.id" :to="button.url"
                 :class="{ 'active': isLinkActive(button.url) }">
                 <img :src="button.img" alt="img" class="png">
             </router-link>
-        </div>
+        </nav>
     </div>
 
     <div v-else>
-        <div class="box">
+        <nav class="box">
             <router-link class="box__item text" v-for="button in linkArray" :key="button.id" :to="button.url"
                 :class="{ 'active': isLinkActive(button.url) }">
                 {{ button.nameLink }}
                 <img :src="button.img" alt="img" class="png">
             </router-link>
-        </div>
+        </nav>
     </div>
 </template>
 
@@ -43,7 +43,7 @@ export default {
                 },
                 {
                     id: '1',
-                    nameLink: 'Лечение',
+                    nameLink: 'Поиграем?',
                     url: '/therapy',
                     img: tooth,
                 },

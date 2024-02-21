@@ -54,7 +54,8 @@
 .container__rev::-webkit-scrollbar {
     width: 12px;
     background-color: #c1d9f0;
-    border-radius: 20px;
+    border-radius: 0 20px 20px 0;
+
 }
 .container__rev::-webkit-scrollbar-thumb {    
     background-color: rgb(90, 119, 123);

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <NavComp />
+        <!-- <NavComp /> -->
         <div class="notFound">
             <div class="title">404 Такой страницы нет.</div>
             <div class="text">Мы вернемся на главный экран через:</div>
@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import NavComp from '@/components/NavComp.vue';
+// import NavComp from '@/components/NavComp.vue';
 export default {
     data() {
         return {
@@ -19,12 +19,12 @@ export default {
             timeReturnTohome: null,
         }
     },   
-    components: { NavComp },       
+    // components: { NavComp },       
     methods:{
         startTimer(){
             this.timeReturnTohome = setInterval(() => {
             if (this.timer === 0) {                
-                clearTimeout(this.timeReturnTohome)
+                clearInterval(this.timeReturnTohome)
                 this.$router.push('/')               
             } else {
                 this.timer--
@@ -32,17 +32,21 @@ export default {
             }, 1000) 
         },
         stopTimer(){
-            if (this.timer === 0) {
-                clearTimeout(this.timeReturnTohome)
-            }
+            
+            if (this.timeReturnTohome !== null) {
+                clearInterval(this.timeReturnTohome);
+            }          
+          
         },
     },
     mounted(){
         this.startTimer()
-    },
+    },    
     destroyed(){
         this.stopTimer()
-    }
+        
+    },
+    
 }
 </script>
 
