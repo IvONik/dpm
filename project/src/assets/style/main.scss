@@ -5,6 +5,8 @@
 @import 'nav';
 @import 'signUp';
 @import 'reviews';
+@import 'contact';
+
 
 
 
@@ -32,7 +34,7 @@ html{
         
     }
     .text{
-        font-size: 1.2rem;
+        font-size: 1.5rem;
     }
 }
 @media screen and (max-width: 425px) {

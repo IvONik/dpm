@@ -1,11 +1,21 @@
 <template>
-    <!-- <NavComp /> -->
     <div v-if="isComplited === false">
         <div class="forma">
             <input minlength="2" type="text" required placeholder="Ваше имя" v-model="name" class="input input__name">
             <textarea minlength="2" maxlength="420" required placeholder="текст" class="input input__text"
                 v-model="text"></textarea>
-            <button class="btn" @click="addreview(arg, event)">оставить отзыв</button>
+
+                <div class="rating">
+                    <div class="rating__star" 
+                    v-for="n in 5" :key="n" 
+                    @click="addRating(n)"
+                    @mouseover="hoverStar(n)"
+                    :class="{ 'hovered': n <= hoveredRating }"
+                    @mouseout="mouseoutStar(n)"
+                    >&#9733;</div>
+                </div>
+
+            <button class="btn btn__rev" @click="addreview(arg, event)">оставить отзыв</button>
         </div>
     </div>
     <div v-if="isComplited === true">
@@ -16,9 +26,6 @@
 <script>
 import { db } from '@/main.js';
 import { collection, addDoc } from "firebase/firestore";
-// import { collection, query, where, getDocs } from "firebase/firestore"; 
-
-// import NavComp from '@/components/NavComp.vue';
 export default {
     data() {
         return {
@@ -26,6 +33,8 @@ export default {
             text: '',
             date: '',
             isComplited: false,
+            rating: null,
+            hoveredRating: null,
         }
 
     },
@@ -37,19 +46,29 @@ export default {
                         name: this.name,
                         text: this.text,
                         date: new Date().getTime(),
-                    });
-                    // console.log("Document written with ID: ", docRef.id);
+                        rating: this.rating,
+                    });                    
                     this.isComplited = true;
                 }
                 else {
                     alert("Поля должны содержать минимум 2 символа")
                 }
             } catch (err) {
+                alert("Что-то пошло не так")
                 console.log(err);
             }
+        },
+        addRating(item){
+            this.rating = item
+        },
+        hoverStar(item){
+            this.hoveredRating = item;
+        },
+        mouseoutStar(){
+            this.hoveredRating = null
         }
     },
-    // components: { NavComp }
+   
 }
 </script>
 
@@ -65,6 +84,7 @@ textarea{
     display: flex;
     justify-content: center;
     flex-direction: column;
+    position: relative;
     max-width: 360px;
     margin-left: auto;
     margin-right: auto;
@@ -105,4 +125,27 @@ textarea{
     background-color: #64ABD0;
     transition: .2s;
 
-}</style>
+}
+.rating {
+    display: flex;
+    align-items: center;
+    
+    font-size: 35px;
+    color: #f2e3d2;
+    gap: 6px;
+}
+
+.rating__star {
+    &.hovered {
+    color: #FFD700; 
+    font-size: 37px;
+    transform: all .1s;
+    }
+}
+.btn__rev{
+//     position: absolute;
+//   bottom: -50px; 
+//   left: 50%;
+//   transform: translateX(-50%);
+}
+</style>

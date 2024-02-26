@@ -1,5 +1,4 @@
 <template>
-        <!-- <NavComp/> -->
         <div class="title">Наши доктора</div>
         <div class="container">
             <div class="part1" >
@@ -24,7 +23,6 @@ import DoctorIvanov from '@/components/DoctorIvanov.vue';
 import DoctorKiryanova from '@/components/DoctorKiryanova.vue';
 import DoctorSurikov from '@/components/DoctorSurikov.vue';
 import DoctorVasilevaComp from '@/components/DoctorVasilevaComp.vue';
-// import NavComp from '@/components/NavComp.vue';
 
 export default {
     name: 'DiplomDoctorsView',
@@ -74,7 +72,6 @@ export default {
         this.active = this.currentId;
     },
     components: { 
-        // NavComp, 
         DoctorVasilevaComp, 
         DoctorKiryanova, DoctorSurikov, DoctorIvanov 
     },    
@@ -84,27 +81,23 @@ export default {
 <style lang="scss" scoped>
 .container{
     display: flex;
-    justify-content: space-around;
-    //gap: 20px;
+    justify-content: center;
+    
 }
-.part1{
-    // width: 60%;
+.part1{    
     background-color: rgba(255, 255, 255, 0.7);
-    // border: 1px solid #141618;
-    // border-radius: 20px;
+   
 }
 .right__part{
     width: 30%;
-    padding-top: 30px;
     &__item{
         margin-bottom: 20px;
         font-size: 25px;
         background-color: 	#64ABD0;        
         border: 1px solid #141618;
         border-radius: 20px;
-        padding-top: 16px;
-        padding-bottom: 16px;
         cursor: pointer;
+        padding: 16px 6px 16px 6px;
     }
 }
 .actived{    
@@ -117,5 +110,40 @@ export default {
     background-color: rgba(124, 161, 165, 0.9);   
     transition: .5s;    
     color: rgb(197, 221, 242);
+}
+@media screen and (max-width: 768px){
+    .container{
+        
+    }
+    .right__part{
+    
+    &__item{        
+        font-size: 20px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+
+        
+    }
+}
+}
+@media screen and (max-width: 425px){
+    .container{
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    .right__part{
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 6px;
+        padding-top: 0px;
+
+            &__item{
+                margin-bottom: 6px;
+            }
+    }
+    .part1{
+        width: 100%;
+    }
 }
 </style>

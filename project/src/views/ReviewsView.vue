@@ -1,10 +1,19 @@
 <template>
-    <!-- <NavComp /> -->
     <div class="title">Ваши отзывы</div>
     <div class="buttons">
         <button class="btn" @click="add()">Оставить отзыв</button>
-        <button class="btn" @click="sortDesc()">Сортировать (сначала новые)</button>
-        <button class="btn" @click="sortAsc()">Сортировать (сначала старые)</button>
+
+        <select class="btn" v-model="selectedOptionTime" @change="selectChangeTime">
+            <option value="startTime">Сортировка по времени:</option>
+            <option value="old">сначала новые</option>
+            <option value="new">сначала старые</option>
+        </select>
+
+        <select class="btn" v-model="selectedOptionRating" @change="selectChangeRating">
+            <option value="startRating">Сортировка по рейтингу:</option>
+            <option value="firstGood" selected>сначала хорошие</option>
+            <option value="firstBad">сначала плохие</option>
+        </select>
     </div>
 
     <div v-if="loading === true">
@@ -13,7 +22,11 @@
 
     <div class="container">
         <div v-for="item in paginatedReviews" :key="item.id" class="container__rev">
-            <div class="container__rev__title">{{ item.name }}</div>
+            <div class="container__rev__title">{{ item.name }}
+                <div class="rating">
+                    <span v-for="n in item.rating" :key="n">&#9733;</span>
+                </div>
+            </div>
             <div class="container__scroll">{{ item.text }}</div>
         </div>
     </div>
@@ -28,7 +41,6 @@
 <script>
 import { db } from '@/main.js';
 import { collection, query, where, getDocs } from "firebase/firestore";
-// import NavComp from '@/components/NavComp.vue';
 import LoaderComp from '@/components/LoaderComp.vue';
 
 export default {
@@ -38,26 +50,40 @@ export default {
             reviewsPerPage: 6,
             pageNumber: 1,
             loading: true,
+            selectedOptionTime: "startTime",
+            selectedOptionRating: "startRating",
         };
     },
     methods: {
         add() {
             if (this.$store.state.auth === false) {
-                this.$router.push('/lk/') 
+                this.$router.push('/lk/')
             } else {
                 this.$router.push('/addReview')
             }
         },
-        sortAsc() {
-            const sortedAsc = this.reviews.sort(
-                (objA, objB) => Number(objA.date) - Number(objB.date),
-            );
+        selectChangeTime() {
+            if (this.selectedOptionTime === "new") {
+                const sortedAsc = this.reviews.sort(
+                    (objA, objB) => Number(objA.date) - Number(objB.date),
+                );
+            } if (this.selectedOptionTime === "old") {
+                const sortedAsc = this.reviews.sort(
+                    (objB, objA) => Number(objA.date) - Number(objB.date),
+                );
+            }
         },
-        sortDesc() {
-            const sortedAsc = this.reviews.sort(
-                (objB, objA) => Number(objA.date) - Number(objB.date),
-            );
-        },
+        selectChangeRating() {
+            if (this.selectedOptionRating === "firstGood") {
+                const sortedAscRating = this.reviews.sort(
+                    (objB, objA) => Number(objA.rating) - Number(objB.rating),
+                );
+            } if (this.selectedOptionRating === "firstBad") {
+                const sortedAscRating = this.reviews.sort(
+                    (objA, objB) => Number(objA.rating) - Number(objB.rating),
+                );
+            }
+        },        
         pageClick(page) {
             this.pageNumber = page;
         },
@@ -86,9 +112,9 @@ export default {
             return this.reviews.slice(from, to);
         }
     },
-    components: { 
-        // NavComp, 
-        LoaderComp },
+    components: {
+        LoaderComp
+    },
 };
 
 </script>
@@ -96,74 +122,5 @@ export default {
 <style lang="scss" scoped>
 @import '../assets/style/_vars.scss';
 
-// .buttons {   
-//     display: grid;    
-//     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-//     gap: 12px;
-//     justify-items: center;
-//     margin-left: auto;
-//     margin-right: auto;
-// }
-// .btn {
-//     width: 350px;
-//     height: 40px;
-//     border-radius: 15px;
-//     background-color: rgb(148, 165, 196);
-//     border: 0;
-//     font-size: 20px;
-//     margin-bottom: 16px;
-// }
-// .btn:hover {
-//     background-color: #64ABD0;
-//     transition: .2s;
-// }
-// .container {
-//     display: grid;
-//     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-//     gap: 12px;   
-//     // height: 750px;
 
-
-//     &__rev {
-//         margin-bottom: 30px;        
-//         height: 350px;
-//         color: $colorText;
-//         display: flex;
-//         @include border;
-//         align-items: center;
-//         font-size: 20px;
-//         justify-content: center;
-//         flex-direction: column;
-//         background-color: rgba(58, 77, 79, 0.9);
-//         word-break: break-all;
-
-//         &__title {
-//             font-size: 25px;
-//             font-weight: 600;
-//             margin-bottom: 10px;
-//             color: #FFBF73;
-//         }
-//     }
-// }
-// .pagination{
-//     display: flex;    
-//     flex-wrap: wrap;
-//     justify-content: center;
-//     gap: 4px;   
-
-// }
-// .pages{
-//     display: flex;  
-//     width: 40px;
-//     justify-content: center;
-//     padding: 10px;
-//     border: solid 1px black;
-//     border-radius: 15px;
-// }
-// .pages:hover{
-//     background-color: #FFBF73;
-// }
-// .activePage{
-//     background-color: #64ABD0;
-// }
 </style>

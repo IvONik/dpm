@@ -4,7 +4,9 @@
         <div class="card-content">
             <div class="title">Зарегистрироваться</div>
 
-            <div class="input-field" :class="{ 'error__input': textUserVisible === true }" @click="newInput">
+            <div class="input-field" 
+            :class="{ 'error__input': textUserVisible === true }" 
+            @click="newInput">
                 <label for="email">Email</label>
                 <br>
                 <input id="email" type="email" v-model.trim="email" required>
@@ -18,7 +20,8 @@
                 <p v-show="textNameVisible" class="error__input">{{ textName }}</p>
             </div>
 
-            <div class="input-field" :class="{ 'error__input': textPasswordVisible === true }" @click="newInput">
+            <div class="input-field" 
+            :class="{ 'error__input': textPasswordVisible === true }" @click="newInput">
                 <label for="password">Пароль (минимум 6 символов)</label>
                 <br>
                 <input id="password" type="password" v-model.trim="password" required>
@@ -79,9 +82,7 @@ export default {
         
         newInput() {
             this.textUserVisible = false;
-            this.textPasswordVisible = false;
-          
-
+            this.textPasswordVisible = false; 
         }
     },
     computed:{

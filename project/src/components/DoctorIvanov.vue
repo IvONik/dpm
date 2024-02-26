@@ -1,8 +1,8 @@
 <template>
     <div>
-        <h2>Иванов Григорий</h2>
+        <h2 class="subtitle">Иванов Григорий</h2>
         <img :src="img"  class="img">
-        <p><span>Образование: </span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestiae, eius?</p>
+        <p><span>Образование: </span>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Placeat, sequi accusantium inventore modi quisquam delectus?</p>
         <p><span>Опыт работы: </span>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
         <p>Lorem, ipsum dolor.</p>
 

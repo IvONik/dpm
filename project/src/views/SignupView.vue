@@ -1,33 +1,39 @@
 <template>
-    
     <div v-if="!this.$store.state.auth">
         <form class="card auth-card" @submit.prevent="submitHandler">
-        <div class="card-content"> <div class="title">Войдите в личный кабинет</div>
-            <div class="input-field">
-                <div class="label"><label for="email">Email</label></div>
-                <br>
-                <input id="email" type="email" v-model.trim="email" required>
+            <div class="card-content">
+                <div class="title">Войдите в личный кабинет</div>
+
+                <div class="input-field"
+                :class="{ 'error__input': textUserVisible === true }" 
+                @click="newInput">
+                    <div class="label"><label for="email">Email</label></div>
+                    <br>
+                    <input id="email" type="email" v-model.trim="email" required>
+                    <p v-show="textUserVisible" class="error__input">{{ textUser }}</p>
+                </div>
+
+                <div class="input-field"                
+                @click="newInput" >
+                    <div class="label"><label for="password">Пароль</label></div>
+                    <br>
+                    <input id="password" type="password" v-model.trim="password" required>                    
+                </div>
             </div>
-            <div class="input-field">
-                <div class="label"><label for="password">Пароль</label></div>
-                <br>                
-                <input id="password" type="password" v-model.trim="password" required>
+            
+            <div class="card-action">
+                <div>
+                    <button class="btn" type="submit">Войти
+                    </button>
+                    <br>
+                    <div class="label">или</div>
+                    <br>
+                    <router-link to="/register"><button class="btn">Зарегистрироваться</button></router-link>
+                </div>
             </div>
-        </div>
-        <div class="card-action">
-            <div>
-                <button class="btn waves-effect waves-light auth-submit" type="submit">Войти
-                </button>
-                <br>
-                <div class="label">или</div>
-                <br>
-                <router-link to="/register"><button class="btn">Зарегистрироваться</button></router-link>
-            </div>
-        </div>
-    </form>
+        </form>
     </div>
     <LKComp v-if="$store.state.auth" />
-    
 </template>
 
 <script>
@@ -43,35 +49,39 @@ export default {
         return {
             email: '',
             password: '',
+            textUser: 'Проверьте ваш логин или пароль',            
+            textUserVisible: false,           
         };
-    },
-    mounted() {
-    },
+    },    
     methods: {
-        ...mapMutations(['IS_AUTH','SET_USERID']),
-        async submitHandler() {  
-            const auth = await getAuth();
-                signInWithEmailAndPassword(auth, this.email, this.password)
-                .then((userCredential) => {                    
-                    const user = userCredential.user;                      
-                    this.$router.push('/lk/'+ user.uid)                     
+        ...mapMutations(["IS_AUTH", "SET_USERID"]),
+        async submitHandler() {
+            try {
+                const auth = getAuth();
+                const userCredential = await signInWithEmailAndPassword(auth, this.email, this.password);
+                const user = userCredential.user;
 
-                    this.IS_AUTH(true)
-                    this.SET_USERID(user.uid)
-                             
-                })
-                .catch((error) => {
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                    alert('Проверьте логин или пароль')
-                });                
-        },        
+                this.$router.push("/lk/" + user.uid);
+                this.IS_AUTH(true);
+                this.SET_USERID(user.uid);
+            } catch (error) {
+                const errorCode = error.code;                
+                if (errorCode === "auth/invalid-credential") {
+                    this.textUserVisible = true;                    
+                }                
+            }
+        },
+        newInput() {
+            this.textUserVisible = false;
+            this.textPasswordVisible = false; 
+        }
     },
-    components: {         
-        PersonalAccount, LKComp },
-   computed:{
-    ...mapState(['userID'])
-   },    
+    components: {
+        PersonalAccount, LKComp
+    },
+    computed: {
+        ...mapState(['userID'])
+    },
 };
 </script>
 
