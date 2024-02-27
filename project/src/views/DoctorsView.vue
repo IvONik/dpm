@@ -1,21 +1,26 @@
 <template>
-        <div class="title">Наши доктора</div>
-        <div class="container">
-            <div class="part1" >
-               <div v-if="currentId === '1'"> <DoctorVasilevaComp/></div>
-               <div v-if="currentId === '3'"> <DoctorKiryanova/></div>
-               <div v-if="currentId === '2'"> <DoctorSurikov/></div>
-               <div v-if="currentId === '4'"> <DoctorIvanov/></div>
+    <div class="title">Наши доктора</div>
+    <div class="container">
+        <div class="part1">
+            <div v-if="currentId === '1'">
+                <DoctorVasilevaComp />
             </div>
-            <div class="right__part">               
-                <div class="right__part__item" 
-                style="white-space: pre-line;"                 
-                v-for="item in doctorsArray" :key="item.id" @click=show(item.id)  
-                :class="{'actived': active === item.id}"
-                >{{ item.name}} {{  item.lustName }}
-                </div>                
+            <div v-if="currentId === '3'">
+                <DoctorKiryanova />
+            </div>
+            <div v-if="currentId === '2'">
+                <DoctorSurikov />
+            </div>
+            <div v-if="currentId === '4'">
+                <DoctorIvanov />
             </div>
         </div>
+        <div class="right__part">
+            <div class="right__part__name" style="white-space: pre-line;" v-for="item in doctorsArray" :key="item.id"
+                @click=show(item.id) :class="{ 'actived': active === item.id }">{{ item.name }} {{ item.lustName }}
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -57,93 +62,109 @@ export default {
                     education: 'СПБГУ',
                     active: null,
                 },
-                
+
             ],
-            currentId: '1', 
+            currentId: '1',
         };
-    },   
+    },
     methods: {
-        show(id){           
-            this.currentId = id 
+        show(id) {
+            this.currentId = id
             this.active = this.currentId;
         }
     },
-    created(){
+    created() {
         this.active = this.currentId;
     },
-    components: { 
-        DoctorVasilevaComp, 
-        DoctorKiryanova, DoctorSurikov, DoctorIvanov 
-    },    
+    components: {
+        DoctorVasilevaComp,
+        DoctorKiryanova, DoctorSurikov, DoctorIvanov
+    },
 };
 </script>
 
 <style lang="scss" scoped>
-.container{
+.container {
     display: flex;
     justify-content: center;
-    
+
 }
-.part1{    
+
+.part1 {
     background-color: rgba(255, 255, 255, 0.7);
-   
+
 }
-.right__part{
+
+.right__part {
+    // flex-direction: column;
+    // gap: 0;
     width: 30%;
-    &__item{
+
+    &__name {
         margin-bottom: 20px;
         font-size: 25px;
-        background-color: 	#64ABD0;        
+        background-color: #64ABD0;
         border: 1px solid #141618;
         border-radius: 20px;
         cursor: pointer;
         padding: 16px 6px 16px 6px;
     }
 }
-.actived{    
+
+.actived {
     background-color: #235B79;
     transition: .2s;
     color: #FFD973;
-    
+
 }
-.right__part__item:hover{    
-    background-color: rgba(124, 161, 165, 0.9);   
-    transition: .5s;    
+
+.right__part__name:hover {
+    background-color: rgba(124, 161, 165, 0.9);
+    transition: .5s;
     color: rgb(197, 221, 242);
 }
-@media screen and (max-width: 768px){
-    .container{
-        
-    }
-    .right__part{
-    
-    &__item{        
-        font-size: 20px;
-        padding-top: 8px;
-        padding-bottom: 8px;
 
-        
+@media screen and (max-width: 768px) {
+
+    .right__part {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+
+        &__name {
+            font-size: 20px;
+            padding-top: 8px;
+            padding-bottom: 8px;
+        }
     }
 }
-}
-@media screen and (max-width: 425px){
-    .container{
+
+@media screen and (max-width: 510px) {
+    .container {
         display: flex;
         flex-direction: column-reverse;
     }
-    .right__part{
+
+    .right__part {
         width: 100%;
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
         gap: 6px;
         padding-top: 0px;
 
-            &__item{
-                margin-bottom: 6px;
-            }
+        &__name {
+            margin-bottom: 6px;
+        }
     }
-    .part1{
+
+    .part1 {
         width: 100%;
     }
 }
-</style>
+
+@media screen and (max-width: 425px) {
+    .container {
+        display: flex;
+        flex-direction: column;
+    }
+}</style>

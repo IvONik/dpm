@@ -1,21 +1,37 @@
 <template>
     <div v-if="isComplited === false">
         <div class="forma">
-            <input minlength="2" type="text" required placeholder="Ваше имя" v-model="name" class="input input__name">
-            <textarea minlength="2" maxlength="420" required placeholder="текст" class="input input__text"
-                v-model="text"></textarea>
+            <input 
+                minlength="2" 
+                type="text" 
+                required 
+                placeholder="Ваше имя" 
+                v-model="name" 
+                class="input input__name">
 
-                <div class="rating">
-                    <div class="rating__star" 
-                    v-for="n in 5" :key="n" 
-                    @click="addRating(n)"
-                    @mouseover="hoverStar(n)"
-                    :class="{ 'hovered': n <= hoveredRating }"
-                    @mouseout="mouseoutStar(n)"
-                    >&#9733;</div>
-                </div>
+            <textarea 
+                minlength="2" 
+                maxlength="420" 
+                required 
+                placeholder="текст" 
+                class="input input__text" 
+                v-model="text">
+            </textarea>
 
-            <button class="btn btn__rev" @click="addreview(arg, event)">оставить отзыв</button>
+            <div class="rating">
+                <div class="rating__star" 
+                v-for="n in 5" :key="n" 
+                @click="addRating(n)" 
+                @mouseover="hoveredStar(n)"
+                :class="{ 'hovered': n <= hoveredRating }" 
+                @mouseout="mouseoutStar(n)">&#9733;</div>
+            </div>
+
+            <button 
+                class="btn btn__rev" 
+                @click="addreview(arg, event)"
+                >оставить отзыв
+            </button>
         </div>
     </div>
     <div v-if="isComplited === true">
@@ -36,9 +52,8 @@ export default {
             rating: null,
             hoveredRating: null,
         }
-
     },
-    methods: {        
+    methods: {
         async addreview() {
             try {
                 if (this.name.length && this.text.length >= 2) {
@@ -47,7 +62,7 @@ export default {
                         text: this.text,
                         date: new Date().getTime(),
                         rating: this.rating,
-                    });                    
+                    });
                     this.isComplited = true;
                 }
                 else {
@@ -58,28 +73,31 @@ export default {
                 console.log(err);
             }
         },
-        addRating(item){
+        addRating(item) {
             this.rating = item
         },
-        hoverStar(item){
+        hoveredStar(item) {
             this.hoveredRating = item;
         },
-        mouseoutStar(){
+        mouseoutStar() {
             this.hoveredRating = null
         }
     },
-   
 }
 </script>
 
 <style lang="scss" scoped>
 @import '../assets/style/vars';
-input{
+
+input {
     background-color: $colorText;
 }
-textarea{
-    background-color: #e2f0f6;;
+
+textarea {
+    background-color: #e2f0f6;
+    ;
 }
+
 .forma {
     display: flex;
     justify-content: center;
@@ -91,18 +109,14 @@ textarea{
     align-items: center;
 
 }
-
 .input__name {
     height: 40px;
 }
-
 .input__text {
     height: 350px;
 }
-
 .input {
     font-size: 20px;
-    // background-color: rgb(174, 207, 241);
     border-radius: 15px;
     margin-bottom: 8px;
     padding-left: 15px;
@@ -110,7 +124,6 @@ textarea{
     border: 0;
     font-size: 20px;
 }
-
 .btn {
     max-width: 360px;
     height: 40px;
@@ -120,7 +133,6 @@ textarea{
     font-size: 20px;
     margin-bottom: 8px;
 }
-
 .btn:hover {
     background-color: #64ABD0;
     transition: .2s;
@@ -129,23 +141,15 @@ textarea{
 .rating {
     display: flex;
     align-items: center;
-    
     font-size: 35px;
     color: #f2e3d2;
     gap: 6px;
 }
-
 .rating__star {
     &.hovered {
-    color: #FFD700; 
-    font-size: 37px;
-    transform: all .1s;
+        color: #FFC700;
+        font-size: 37px;
+        transform: all .1s;
     }
-}
-.btn__rev{
-//     position: absolute;
-//   bottom: -50px; 
-//   left: 50%;
-//   transform: translateX(-50%);
 }
 </style>
