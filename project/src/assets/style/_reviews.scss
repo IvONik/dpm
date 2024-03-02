@@ -18,6 +18,7 @@
 .btn:hover {
     background-color: #64ABD0;
     transition: .2s;
+    
 }
 .container {
     display: grid;
@@ -86,6 +87,7 @@
 }
 .pages:hover{
     background-color: #FFBF73;
+    color: #000;
 }
 .activePage{
     background-color: #64ABD0;
@@ -136,6 +138,10 @@
 }
 
 @media screen and (max-width: 425px) {
+    .reviews__box{
+        // height: calc(100% - 290px);
+        overflow-y: auto;
+    }
     .container{
         grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
         gap: 4px;

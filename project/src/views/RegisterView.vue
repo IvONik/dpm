@@ -7,15 +7,19 @@
             <div class="input-field" 
             :class="{ 'error__input': textUserVisible === true }" 
             @click="newInput">
-                <label for="email">Email</label>
-                <br>
+                <div class="label">
+                    <label for="email">Email</label>
+                    <br>
+                </div>
                 <input id="email" type="email" v-model.trim="email" required>
                 <p v-show="textUserVisible" class="error__input">{{ textUser }}</p>
             </div>
 
             <div class="input-field" @click="newInput">
-                <label for="name">Ваше имя</label>
-                <br>
+                <div class="label">
+                    <label for="name">Ваше имя</label>
+                    <br>
+                </div>
                 <input id="name" type="text" v-model.trim="name" required>
                 <p v-show="textNameVisible" class="error__input">{{ textName }}</p>
             </div>
@@ -93,48 +97,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.card {
-    width: 70%;
-    background-color: azure;
-    border-radius: 15px;
-    padding: 20px;
-    margin-left: auto;
-    margin-right: auto;
-}
 
-.input-field {
-    margin-bottom: 16px;
-
-}
-
-input {
-    width: 360px;
-    height: 40px;
-    background-color: white;
-    border-radius: 15px;
-    margin-bottom: 10px;
-    padding-left: 15px;
-    border: 0;
-    font-size: 20px;
-}
-
-.btn {
-    width: 360px;
-    height: 40px;
-    border-radius: 15px;
-    background-color: rgb(217, 196, 255);
-    border: 0;
-    font-size: 20px;
-    margin-bottom: 10px;
-}
-
-.btn:hover {
-    background-color: rgb(142, 86, 245);
-}
-
-.error__input {
-    color: red;
-    background-color: rgb(52, 35, 35);
-    border-radius: 15px;
-}
 </style>

@@ -87,8 +87,8 @@ export default {
     methods: {
         isLinkActive(url) {
             // return this.$route.path === url || (url === '/signup' && this.$route.path === '/LK' && this.$route.path === '/addReview');
+            // return this.$route.path === url || (url === '/lk' && this.$route.path.startsWith('/lk/'));
             return this.$route.path === url || (url === '/lk' && this.$route.path.startsWith('/lk/'));
-
 
         
 
@@ -96,6 +96,7 @@ export default {
         onResize() {
             this.smallScreen = window.innerWidth <= 425;
         }
+        
     },
     created() {
         window.addEventListener('resize', this.onResize);
@@ -104,6 +105,15 @@ export default {
     destroyed() {
         window.removeEventListener('resize', this.onResize)
     },
+    watch: {
+    $route(to, from) {
+        // Сбросить стиль "активной" кнопки при изменении маршрута
+        const activeButton = document.querySelector('.box__item.active');
+        if (activeButton) {
+            activeButton.classList.remove('active');
+        }
+    }
+},
 
 };
 </script>

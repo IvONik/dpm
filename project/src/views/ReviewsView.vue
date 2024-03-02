@@ -1,39 +1,36 @@
 <template>
-    <div class="title">Ваши отзывы</div>
-    <div class="buttons">
-        <button class="btn" @click="add()">Оставить отзыв</button>
-
-        <select class="btn" v-model="selectedOptionTime" @change="selectChangeTime">
-            <option value="startTime">Сортировка по времени:</option>
-            <option value="old">сначала новые</option>
-            <option value="new">сначала старые</option>
-        </select>
-
-        <select class="btn" v-model="selectedOptionRating" @change="selectChangeRating">
-            <option value="startRating">Сортировка по рейтингу:</option>
-            <option value="firstGood" selected>сначала хорошие</option>
-            <option value="firstBad">сначала плохие</option>
-        </select>
-    </div>
-
-    <div v-if="loading === true">
-        <LoaderComp />
-    </div>
-
-    <div class="container">
-        <div v-for="item in paginatedReviews" :key="item.id" class="container__rev">
-            <div class="container__rev__title">{{ item.name }}
-                <div class="rating">
-                    <span v-for="n in item.rating" :key="n">&#9733;</span>
-                </div>
-            </div>
-            <div class="container__scroll">{{ item.text }}</div>
+    <div class="reviews__box">
+        <div class="title">Ваши отзывы</div>
+        <div class="buttons">
+            <button class="btn" @click="add()">Оставить отзыв</button>
+            <select class="btn" v-model="selectedOptionTime" @change="selectChangeTime">
+                <option value="startTime">Сортировка по времени:</option>
+                <option value="old">сначала новые</option>
+                <option value="new">сначала старые</option>
+            </select>
+            <select class="btn" v-model="selectedOptionRating" @change="selectChangeRating">
+                <option value="startRating">Сортировка по рейтингу:</option>
+                <option value="firstGood" selected>сначала хорошие</option>
+                <option value="firstBad">сначала плохие</option>
+            </select>
         </div>
-    </div>
-
-    <div class="pagination">
-        <div v-for="page in pages" class="pages" @click="pageClick(page)" :class="{ 'activePage': page === pageNumber }">
-            {{ page }}
+        <div v-if="loading === true">
+            <LoaderComp />
+        </div>
+        <div class="container">
+            <div v-for="item in paginatedReviews" :key="item.id" class="container__rev">
+                <div class="container__rev__title">{{ item.name }}
+                    <div class="rating">
+                        <span v-for="n in item.rating" :key="n">&#9733;</span>
+                    </div>
+                </div>
+                <div class="container__scroll">{{ item.text }}</div>
+            </div>
+        </div>
+        <div class="pagination">
+            <div v-for="page in pages" class="pages" @click="pageClick(page)" :class="{ 'activePage': page === pageNumber }">
+                {{ page }}
+            </div>
         </div>
     </div>
 </template>
