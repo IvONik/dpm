@@ -1,24 +1,10 @@
 stages:
-  - build
   - deploy
-
-build prod:
   image: node:alpine
-  stage: build
-  only:
-    - tags
-  script:
-    # Установка vuecli
-    - npm install -g @vue/cli@latest
-    # Установка зависимостей
-    - npm install
-    # Сборка приложения
-    - npm run build
-  artifacts:
-    paths:
-      # Создание директории
-      - dist/
-    expire_in: 1 hour
+   cache:
+     paths:
+       - node_modules/ 
+
 deploy prod:
   stage: deploy
   script:
