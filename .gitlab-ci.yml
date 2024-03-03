@@ -19,4 +19,14 @@ build prod:
       # Создание директории
       - dist/
     expire_in: 1 hour
-    
+deploy prod:
+  stage: deploy
+  script:
+    # Установка зависимостей
+    -   npm install
+    # Установка firebase-tools
+    -   npm i -g firebase-tools
+    # Сборка приложения
+    -   npm run build
+
+
