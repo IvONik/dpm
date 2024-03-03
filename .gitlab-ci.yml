@@ -1,13 +1,11 @@
-stages:
-  - deploy
   image: node:alpine
-   cache:
+  cache:
      paths:
        - node_modules/ 
 
-deploy prod:
-  stage: deploy
-  script:
+  deploy prod:
+    stage: deploy
+    script:
     # Установка зависимостей
     -   npm install
     # Установка firebase-tools
