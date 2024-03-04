@@ -1,4 +1,4 @@
-  image: node:alpine
+  image: node:v18.17.1
   cache:
      paths:
        - node_modules/ 
