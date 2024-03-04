@@ -1,13 +1,19 @@
-  # image: node:latest
-  cache:
-     paths:
-       - node_modules/  
+stages:
+  - build
 
-  before_script:
-    - npm install -g @vue/cli
+variables:
+  NODE_VERSION: "14"
 
-  build:
-    stage: build
-    script:
-      - npm install
-      - npm run build
+before_script:
+  - apt-get update -qy
+  - apt-get install -y curl
+  - curl -sL https://deb.nodesource.com/setup_$NODE_VERSION.x | bash -
+  - apt-get install -y nodejs
+  - npm install -g @vue/cli
+
+build:
+  stage: build
+  script:
+    - npm install
+    - npm run build
+
