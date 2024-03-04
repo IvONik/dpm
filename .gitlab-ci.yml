@@ -21,6 +21,7 @@ build site:
 
 
 deploy_firebase:
+  image: node:alpine
   stage: deploy
   script:
     - npm install -g firebase-tools
