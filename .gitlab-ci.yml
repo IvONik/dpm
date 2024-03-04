@@ -1,4 +1,4 @@
-  image: node:v18.17.1
+  image: node:latest
   cache:
      paths:
        - node_modules/ 
