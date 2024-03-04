@@ -5,12 +5,13 @@ variables:
   NODE_VERSION: "14"
 
 before_script:  
-  - node --version
-  - npm --version
+
   - apt-get update -qy
   - apt-get install -y curl
   - curl -sL https://deb.nodesource.com/setup_$NODE_VERSION.x | bash -
   - apt-get install -y nodejs
+  - node --version
+  - npm --version
   - npm install -g @vue/cli
 
 build:
