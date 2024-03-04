@@ -6,7 +6,7 @@ variables:
   FIREBASE_PROJECT_ID: "dpmfb-3b66c"
 
 build site:
-  image: node:latest  
+  image: node:alpine  
   stage: build
   script:
     - npm install --progress=false
@@ -25,6 +25,7 @@ deploy_firebase:
   stage: deploy
   script:
     - npm install -g firebase-tools
+    - cd project
     - firebase use $FIREBASE_PROJECT_ID
     - firebase deploy --only hosting
   # only:
