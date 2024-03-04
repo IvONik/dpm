@@ -10,6 +10,7 @@
     -   npm install
     # Установка firebase-tools
     -   npm i -g firebase-tools
+    -   firebase init
     # Сборка приложения
     -   npm run build
 
