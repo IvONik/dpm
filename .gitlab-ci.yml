@@ -26,7 +26,7 @@ deploy_firebase:
   script:
     - npm install -g firebase-tools
     - cd project
-    - firebase use $FIREBASE_PROJECT_ID
-    - firebase deploy --only hosting --token "09pAxDnLmmGW8CgYIARAAGAkSNwF-L9Ir4tEEupP6idgY6IIczF8kIvfZOa0qUugBO4M_yr4UODJ6DoyUtVETbQ0gv995-0WeP54"
+    - firebase use $FIREBASE_PROJECT_ID --token "09pAxDnLmmGW8CgYIARAAGAkSNwF-L9Ir4tEEupP6idgY6IIczF8kIvfZOa0qUugBO4M_yr4UODJ6DoyUtVETbQ0gv995-0WeP54"
+    - firebase deploy --only hosting 
   # only:
   #   - master
