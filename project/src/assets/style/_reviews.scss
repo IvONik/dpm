@@ -32,7 +32,9 @@
         @include border;
         font-size: 20px;
         flex-direction: column;
-        background-color: rgba(58, 77, 79);
+        background-color: rgb(73, 109, 113);
+        
+
         white-space: normal;
         overflow: auto;
         overflow-x: hidden;
@@ -48,7 +50,7 @@
             color: #ede3d6;
             position: sticky;
             top: 0;
-            background-color: rgba(58, 77, 79);
+            background-color: rgb(73, 109, 113);
         }
     }
     
