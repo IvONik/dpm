@@ -3,6 +3,7 @@ build site:
   stage: build
   script:
     - npm install --progress=false
+    - cd project
     - npm run build
   artifacts:
     expire_in: 1 week
