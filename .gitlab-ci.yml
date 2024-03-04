@@ -5,6 +5,7 @@ build site:
     - npm install --progress=false
     - npm install -g @vue/cli
     - cd project
+    - npm install @vue/cli-service
     - npm run build
   artifacts:
     expire_in: 1 week
