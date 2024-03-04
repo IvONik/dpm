@@ -30,4 +30,4 @@ deploy_firebase:
     - echo "$GOOGLE_APPLICATION_CREDENTIALS" >> firebase.json 
     - cat firebase.json
     - firebase deploy --only hosting
-  #   - master
+  #   - master 
