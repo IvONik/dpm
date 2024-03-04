@@ -1,24 +1,12 @@
-stages:
-  - build
-
-variables:
-  NODE_VERSION: "14"
-
-before_script:  
-
-  - apt-get update -qy
-  - apt-get install -y curl
-  - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
-  - export NVM_DIR="$HOME/.nvm"
-  
-  - nvm install $NODE_VERSION
-  - node --version
-  - npm --version
-  - npm install -g @vue/cli
-
-build:
+build site:
+  image: node:6
   stage: build
   script:
-    - npm install
+    - npm install --progress=false
     - npm run build
+  artifacts:
+    expire_in: 1 week
+    paths:
+      - dist
+
 
