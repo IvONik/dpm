@@ -10,6 +10,6 @@ build site:
   artifacts:
     expire_in: 1 week
     paths:
-      - dist
+      - project/dist
 
 
