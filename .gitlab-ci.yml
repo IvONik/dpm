@@ -1,17 +1,13 @@
   image: node:latest
   cache:
      paths:
-       - node_modules/ 
+       - node_modules/  
 
-  deploy prod:
-    stage: deploy
+  before_script:
+    - npm install -g @vue/cli
+
+  build:
+    stage: build
     script:
-    # Установка зависимостей
-    -   npm install
-    # Установка firebase-tools
-    -   npm i -g firebase-tools
-    -   firebase init
-    # Сборка приложения
-    -   npm run build
-
-
+      - npm install
+      - npm run build
