@@ -29,5 +29,5 @@ deploy_firebase:
     - head -c -2 firebase.json > temp_file.txt && mv temp_file.txt firebase.json
     - echo "$GOOGLE_APPLICATION_CREDENTIALS" >> firebase.json 
     - cat firebase.json
-    - firebase deploy --only hosting
+    - firebase deploy --only hosting --token "$FIREBASE_TOKEN"
   #   - master 
