@@ -3,6 +3,7 @@ build site:
   stage: build
   script:
     - npm install --progress=false
+    - npm install -g @vue/cli
     - cd project
     - npm run build
   artifacts:
