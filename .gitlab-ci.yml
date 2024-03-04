@@ -26,6 +26,7 @@ deploy_firebase:
   script:
     - npm install -g firebase-tools
     - cd project
+    - head -c -1 firebase.json > temp_file.txt && mv temp_file.txt firebase.json
     - echo "$GOOGLE_APPLICATION_CREDENTIALS" >> firebase.json 
     - cat firebase.json
     - firebase deploy --only hosting
