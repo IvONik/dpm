@@ -27,5 +27,6 @@ deploy_firebase:
     - npm install -g firebase-tools
     - cd project
     - echo "$FIREBASE_CONFIG" > firebase.json 
+    - cat firebase.json
     - firebase deploy --only hosting
   #   - master
