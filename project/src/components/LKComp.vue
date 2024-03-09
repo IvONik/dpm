@@ -24,7 +24,7 @@ export default {
         };
     },
     methods: {
-        ...mapMutations(['IS_AUTH', 'SET_USERID']),
+        ...mapMutations(['IS_AUTH', 'SET_USERID', 'SET_USER_NAME']),
         async logout() {
             const auth = getAuth();
             signOut(auth)
@@ -33,6 +33,7 @@ export default {
                     console.log('logout');
                     this.IS_AUTH(false);
                     this.SET_USERID('');
+                    this.SET_USER_NAME('')
 
                 }).catch((error) => {
                     console.log(error);

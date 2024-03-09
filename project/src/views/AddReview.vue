@@ -1,40 +1,28 @@
 <template>
-    <div v-if="isComplited === false">
+    <div v-if="isCompleted === false">
         <div class="forma">
-            <input 
+            <!-- <input 
                 minlength="2" 
                 type="text" 
                 required 
                 placeholder="Ваше имя" 
                 v-model="name" 
-                class="input input__name">
+                class="input input__name"> -->
 
-            <textarea 
-                minlength="2" 
-                maxlength="420" 
-                required 
-                placeholder="текст" 
-                class="input input__text" 
+            <textarea minlength="2" maxlength="420" required placeholder="текст" class="input input__text"
                 v-model="text">
             </textarea>
 
             <div class="rating">
-                <div class="rating__star" 
-                v-for="n in 5" :key="n" 
-                @click="addRating(n)" 
-                @mouseover="hoveredStar(n)"
-                :class="{ 'hovered': n <= hoveredRating }" 
-                @mouseout="mouseoutStar(n)">&#9733;</div>
+                <div class="rating__star" v-for="n in 5" :key="n" @click="addRating(n)" @mouseover="hoveredStar(n)"
+                    :class="{ 'hovered': n <= hoveredRating }" @mouseout="mouseoutStar(n)">&#9733;</div>
             </div>
 
-            <button 
-                class="btn btn__rev" 
-                @click="addreview(arg, event)"
-                >оставить отзыв
+            <button class="btn btn__rev" @click="addReview()">оставить отзыв
             </button>
         </div>
     </div>
-    <div v-if="isComplited === true">
+    <div v-if="isCompleted === true">
         <h2 class="title">Спасибо, ваше мнение очень важно для нас</h2>
     </div>
 </template>
@@ -42,35 +30,59 @@
 <script>
 import { db } from '@/main.js';
 import { collection, addDoc } from "firebase/firestore";
+import { getDatabase, ref, onValue } from "firebase/database";
+import { getAuth } from "firebase/auth";
+
 export default {
     data() {
         return {
-            name: '',
+            username: '',
             text: '',
             date: '',
-            isComplited: false,
+            isCompleted: false,
             rating: null,
             hoveredRating: null,
         }
     },
     methods: {
-        async addreview() {
+        async addReview() {
             try {
-                if (this.name.length && this.text.length >= 2) {
+                // if (this.name.length && this.text.length >= 2) {
+                if (this.text.length >= 2) {
+                    const name = await this.getName();
+
                     const docRef = await addDoc(collection(db, "reviews"), {
-                        name: this.name,
+                        name: name,
                         text: this.text,
                         date: new Date().getTime(),
                         rating: this.rating,
                     });
-                    this.isComplited = true;
-                }
-                else {
-                    alert("Поля должны содержать минимум 2 символа")
+
+                    this.isCompleted = true;
+                } else {
+                    alert("Поля должны содержать минимум 2 символа");
                 }
             } catch (err) {
-                alert("Что-то пошло не так")
-                console.log(err);
+                alert("Что-то пошло не так");
+                console.error(err);
+            }
+        },
+        async getName() {
+            try {
+                const db = getDatabase();
+                const auth = getAuth();
+
+                const userId = auth.currentUser.uid;
+                let username = "";
+
+                await onValue(ref(db, "/users/" + userId), (snapshot) => {
+                    username = (snapshot.val() && snapshot.val().username) || "Anonymous";
+                });
+                console.log(username);
+                return username;
+            } catch (err) {
+                console.error(err);
+                return "Anonymous";
             }
         },
         addRating(item) {
@@ -109,12 +121,15 @@ textarea {
     align-items: center;
 
 }
+
 .input__name {
     height: 40px;
 }
+
 .input__text {
     height: 350px;
 }
+
 .input {
     font-size: 20px;
     border-radius: 15px;
@@ -124,6 +139,7 @@ textarea {
     border: 0;
     font-size: 20px;
 }
+
 .btn {
     max-width: 360px;
     height: 40px;
@@ -133,11 +149,13 @@ textarea {
     font-size: 20px;
     margin-bottom: 8px;
 }
+
 .btn:hover {
     background-color: #64ABD0;
     transition: .2s;
 
 }
+
 .rating {
     display: flex;
     align-items: center;
@@ -145,6 +163,7 @@ textarea {
     color: #f2e3d2;
     gap: 6px;
 }
+
 .rating__star {
     &.hovered {
         color: #FFC700;

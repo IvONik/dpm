@@ -43,6 +43,9 @@
 
 <script>
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { db } from '@/main.js';
+import { collection, addDoc } from "firebase/firestore";
+import { getDatabase, ref, set } from "firebase/database";
 import { mapState, mapMutations } from 'vuex';
 
 export default {
@@ -60,16 +63,33 @@ export default {
         };
     },
     methods: {
-        ...mapMutations(['IS_AUTH','SET_USERID']),       
+        ...mapMutations(['IS_AUTH','SET_USERID', 'SET_USER_NAME']),       
 
         async submitHandler() {
             try {
                 const auth = getAuth();
-                const userCredential = await createUserWithEmailAndPassword(auth, this.email, this.password, this.name);
+                const userCredential = await createUserWithEmailAndPassword(auth, this.email, this.password);
                 const user = userCredential.user;                
                 this.$router.push('/lk/' + user.uid);
+                
                 this.IS_AUTH(true)
                 this.SET_USERID(user.uid)
+
+                // const docRef = await addDoc(collection(db, "users"), {
+                //     name: this.name 
+                // });
+                // const docRef = await addDoc(collection(db, `users/${user.uid}`),{
+                //     name:this.name}
+                // )
+                // 
+
+
+                const db = getDatabase();
+                    set(ref(db, 'users/' + user.uid), {
+                        username: this.name,
+                        email: this.email,                        
+                    });
+                this.SET_USER_NAME(this.name) 
                 
             } catch (error) {
                 const errorCode = error.code;

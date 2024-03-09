@@ -4,6 +4,7 @@ export default createStore({
   state: {
     auth: false,
     userID: '',
+    userName: '',
   },  
   mutations: {  
     IS_AUTH(state, boolean)  {
@@ -11,6 +12,9 @@ export default createStore({
     },
     SET_USERID(state, id){
       state.userID = id
+    },
+    SET_USER_NAME(state, name){
+      state.userName = name
     }
 
   },

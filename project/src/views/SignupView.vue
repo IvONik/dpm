@@ -5,8 +5,8 @@
                 <div class="title">Войдите в личный кабинет</div>
 
                 <div class="input-field"
-                :class="{ 'error__input': textUserVisible === true }" 
-                @click="newInput">
+                    :class="{ 'error__input': textUserVisible === true }" 
+                    @click="newInput">
                     <div class="label"><label for="email">Email</label></div>
                     <br>
                     <input id="email" type="email" v-model.trim="email" required>
@@ -42,6 +42,7 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import PersonalAccount from './PersonalAccount.vue';
 import LKComp from '@/components/LKComp.vue';
 import { mapState, mapMutations } from 'vuex';
+import { getDatabase, ref, onValue } from "firebase/database";
 
 export default {
     name: 'DiplomSignupView',
@@ -54,7 +55,7 @@ export default {
         };
     },    
     methods: {
-        ...mapMutations(["IS_AUTH", "SET_USERID"]),
+        ...mapMutations(["IS_AUTH", "SET_USERID", "SET_USER_NAME"]),
         async submitHandler() {
             try {
                 const auth = getAuth();
@@ -64,11 +65,33 @@ export default {
                 this.$router.push("/lk/" + user.uid);
                 this.IS_AUTH(true);
                 this.SET_USERID(user.uid);
+                this.SET_USER_NAME(await this.getName());
+                console.log(this.$store.state.userName);
+
             } catch (error) {
                 const errorCode = error.code;                
                 if (errorCode === "auth/invalid-credential") {
                     this.textUserVisible = true;                    
                 }                
+            }
+        },
+        async getName() {
+            try {
+                const db = getDatabase();
+                const auth = getAuth();
+
+                const userId = auth.currentUser.uid;
+                let username = "";
+
+                await onValue(ref(db, "/users/" + userId), (snapshot) => {
+                    username = (snapshot.val() && snapshot.val().username) || "Anonymous";
+                });
+                console.log(userId);
+                console.log(username);
+                return username;
+            } catch (err) {
+                console.error(err);
+                return "Anonymous";
             }
         },
         newInput() {
@@ -80,7 +103,7 @@ export default {
         PersonalAccount, LKComp
     },
     computed: {
-        ...mapState(['userID'])
+        ...mapState(['userID', 'userName'])
     },
 };
 </script>
