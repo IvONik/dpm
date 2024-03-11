@@ -27,26 +27,20 @@
                 <div class="container__scroll">{{ item.text }}</div>
             </div>
         </div>
-       
+
 
         <div class="pagination">
-            <button class="pages" 
-                @click="prevPages" 
-                v-if="pageNumber > maxVisiblePages"                
-                >...
+            <button class="pages" @click="prevPages" v-if="pageNumber > maxVisiblePages">...
             </button>
 
-            <div v-for="page in visiblePages" class="pages" @click="pageClick(page)" :class="{ 'activePage': page === pageNumber }">
+            <div v-for="page in visiblePages" class="pages" @click="pageClick(page)"
+                :class="{ 'activePage': page === pageNumber }">
                 {{ page }}
             </div>
 
-            <button class="pages" 
-                @click="nextPages" 
-                v-if="hasNextPages"                
-                >
+            <button class="pages" @click="nextPages" v-if="hasNextPages">
                 ...
             </button>
-            
         </div>
 
     </div>
@@ -65,8 +59,8 @@ export default {
             pageNumber: 1,
             loading: true,
             selectedOptionTime: "startTime",
-            selectedOptionRating: "startRating",            
-            maxVisiblePages: 5,
+            selectedOptionRating: "startRating",
+            maxVisiblePages: 4,
         };
     },
     methods: {
@@ -98,15 +92,21 @@ export default {
                     (objA, objB) => Number(objA.rating) - Number(objB.rating),
                 );
             }
-        },        
+        },
         pageClick(page) {
             this.pageNumber = page;
         },
-        nextPages() { 
-            this.pageNumber = this.visiblePages[this.visiblePages.length - 1] + 1;
+        nextPages() {
+            this.pageNumber = Math.min(
+                this.visiblePages[this.visiblePages.length - 1] + 1,
+                Math.ceil(this.reviews.length / this.reviewsPerPage)
+            );
         },
-        prevPages(){           
-            this.pageNumber = this.visiblePages[this.visiblePages.length - 1] - 1;
+        prevPages() {
+            this.pageNumber = Math.max(
+                this.visiblePages[0] - 1,
+                1
+            );
         }
     },
 
@@ -133,7 +133,6 @@ export default {
             return this.reviews.slice(from, to);
         },
         visiblePages() {
-            
             const lastPage = Math.ceil(this.reviews.length / this.reviewsPerPage);
             let startPage = Math.max(1, this.pageNumber - Math.floor(this.maxVisiblePages / 2));
             let endPage = Math.min(lastPage, startPage + this.maxVisiblePages - 1);
@@ -141,13 +140,11 @@ export default {
             if (endPage - startPage + 1 < this.maxVisiblePages) {
                 startPage = Math.max(1, endPage - this.maxVisiblePages + 1);
             }
-
             return Array.from({ length: endPage - startPage + 1 }, (_, index) => startPage + index);
         },
-    
-    hasNextPages() {
-      return this.visiblePages[this.visiblePages.length - 1] < Math.ceil(this.reviews.length / this.reviewsPerPage);
-    },
+        hasNextPages() {
+            return this.visiblePages[this.visiblePages.length - 1] < Math.ceil(this.reviews.length / this.reviewsPerPage);
+        },
     },
     components: {
         LoaderComp
@@ -158,6 +155,4 @@ export default {
 
 <style lang="scss" scoped>
 @import '../assets/style/_vars.scss';
-
-
 </style>

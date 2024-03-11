@@ -38,11 +38,12 @@
 
 <script>
 
+import { getDatabase, ref, onValue } from "firebase/database";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import PersonalAccount from './PersonalAccount.vue';
 import LKComp from '@/components/LKComp.vue';
 import { mapState, mapMutations } from 'vuex';
-import { getDatabase, ref, onValue } from "firebase/database";
+
 
 export default {
     name: 'DiplomSignupView',
@@ -66,8 +67,6 @@ export default {
                 this.IS_AUTH(true);
                 this.SET_USERID(user.uid);
                 this.SET_USER_NAME(await this.getName());
-                console.log(this.$store.state.userName);
-
             } catch (error) {
                 const errorCode = error.code;                
                 if (errorCode === "auth/invalid-credential") {
@@ -76,19 +75,17 @@ export default {
             }
         },
         async getName() {
-            try {
+            try {  
                 const db = getDatabase();
                 const auth = getAuth();
-
                 const userId = auth.currentUser.uid;
-                let username = "";
-
-                await onValue(ref(db, "/users/" + userId), (snapshot) => {
-                    username = (snapshot.val() && snapshot.val().username) || "Anonymous";
+                // Promise
+                return new Promise((resolve, reject) => {
+                    onValue(ref(db, "/users/" + userId), (snapshot) => {
+                        const username = (snapshot.val() && snapshot.val().username) || "Anonymous";                        
+                        resolve(username);
+                    });
                 });
-                console.log(userId);
-                console.log(username);
-                return username;
             } catch (err) {
                 console.error(err);
                 return "Anonymous";

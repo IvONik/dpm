@@ -1,21 +1,19 @@
 <template>
     <div v-if="isCompleted === false">
-        <div class="forma">
-            <!-- <input 
-                minlength="2" 
-                type="text" 
-                required 
-                placeholder="Ваше имя" 
-                v-model="name" 
-                class="input input__name"> -->
+        <div class="forma">           
 
             <textarea minlength="2" maxlength="420" required placeholder="текст" class="input input__text"
                 v-model="text">
             </textarea>
 
             <div class="rating">
-                <div class="rating__star" v-for="n in 5" :key="n" @click="addRating(n)" @mouseover="hoveredStar(n)"
-                    :class="{ 'hovered': n <= hoveredRating }" @mouseout="mouseoutStar(n)">&#9733;</div>
+                <div class="rating__star" 
+                    v-for="n in 5" :key="n" 
+                    @click="addRating(n)"                     
+                    @mouseover="hoveredStar(n)"
+                    :class="{ 'hovered': n <= hoveredRating, 'rating__star_active': n <= rating }" 
+                    @mouseout="mouseoutStar(n)">&#9733;
+                </div>
             </div>
 
             <button class="btn btn__rev" @click="addReview()">оставить отзыв
@@ -30,8 +28,6 @@
 <script>
 import { db } from '@/main.js';
 import { collection, addDoc } from "firebase/firestore";
-import { getDatabase, ref, onValue } from "firebase/database";
-import { getAuth } from "firebase/auth";
 
 export default {
     data() {
@@ -47,12 +43,9 @@ export default {
     methods: {
         async addReview() {
             try {
-                // if (this.name.length && this.text.length >= 2) {
-                if (this.text.length >= 2) {
-                    const name = await this.getName();
-
+                if (this.text.length >= 2) { 
                     const docRef = await addDoc(collection(db, "reviews"), {
-                        name: name,
+                        name: this.$store.state.userName,
                         text: this.text,
                         date: new Date().getTime(),
                         rating: this.rating,
@@ -66,25 +59,7 @@ export default {
                 alert("Что-то пошло не так");
                 console.error(err);
             }
-        },
-        async getName() {
-            try {
-                const db = getDatabase();
-                const auth = getAuth();
-
-                const userId = auth.currentUser.uid;
-                let username = "";
-
-                await onValue(ref(db, "/users/" + userId), (snapshot) => {
-                    username = (snapshot.val() && snapshot.val().username) || "Anonymous";
-                });
-                console.log(username);
-                return username;
-            } catch (err) {
-                console.error(err);
-                return "Anonymous";
-            }
-        },
+        },        
         addRating(item) {
             this.rating = item
         },
@@ -107,7 +82,7 @@ input {
 
 textarea {
     background-color: #e2f0f6;
-    ;
+    
 }
 
 .forma {
@@ -171,4 +146,9 @@ textarea {
         transform: all .1s;
     }
 }
+.rating__star_active{
+    color: #FFC700;
+    font-size: 37px;
+}
+
 </style>
